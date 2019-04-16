@@ -1,0 +1,95 @@
+<div class="container border rounded col-sm-4">
+  <h1>Profile</h1>
+  <div class="alert alert-success" role="alert" *ngIf="isSaved">
+    Profile successfully saved
+  </div>
+  <div class="form-group">
+    <label htmlFor="username" class="col-sm-12 col-form-label">
+      Username
+    </label>
+    <div class="col-sm-12">
+      <input
+        class="form-control"
+        id="username"
+        placeholder="Alice"
+        disabled
+        [(ngModel)]="user.Username"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="phone" class="col-sm-12 col-form-label">
+      Phone
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="number"
+        class="form-control"
+        id="phone"
+        placeholder="(111) 111 1111"
+        onChange="{this.phoneChanged}"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="email" class="col-sm-12 col-form-label">
+      Email
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="alice@wonderland.com"
+        onChange="{this.emailChanged}"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="role" class="col-sm-12 col-form-label">
+      Role
+    </label>
+    <div class="col-sm-12">
+      <select
+        id="role"
+        class="col-sm-12 form-control"
+        onChange="{this.roleChanged}"
+      >
+        <option value="FACULTY">Faculty</option>
+        <option value="STUDENT">Student</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="dob" class="col-sm-12 col-form-label">
+      Date of Birth
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="date"
+        class="form-control"
+        id="dob"
+        placeholder="alice@wonderland.com"
+        onChange="{this.dobChanged}"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <button
+        onClick="{this.updateProfile}"
+        class="btn btn-outline-success btn-block"
+      >
+        Update
+      </button>
+      <button
+        href=""
+        class="btn btn-outline-danger btn-block"
+        onClick="{this.logout}"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
