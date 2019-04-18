@@ -34,6 +34,7 @@ export class RecipeService {
 
   findRecipeById = recipeId => {
 
+    console.log(recipeId);
     return fetch(this.RECIPE_URL + recipeId)
       .then(response => response.json())
       .catch(error => Promise.reject("Error in search"));
