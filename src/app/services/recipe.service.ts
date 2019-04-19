@@ -9,7 +9,7 @@ export class RecipeService {
   RECIPE_URL;
   constructor(private constants: ConstantsService) {
 
-    this.RECIPE_URL = constants.BASE_API_URL + '/api/recipe/';
+    this.RECIPE_URL = constants.BASE_API_URL + 'recipe/';
   }
 
   createRecipe = recipe => {
