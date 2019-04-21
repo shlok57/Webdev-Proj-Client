@@ -8,4 +8,8 @@ export class User {
   Role: String;
   Phone: String;
   Email: String;
+
+  constructor(username = "", password = "") {
+    (this.Username = username), (this.Password = password);
+  }
 }
