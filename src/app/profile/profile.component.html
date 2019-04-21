@@ -1,4 +1,27 @@
-<div class="container border rounded col-sm-4">
+<navbar></navbar>
+<div class="container border rounded col-sm-10 mt-3" *ngIf="!editMode">
+  <h1>Profile</h1>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <img src="http://i.pravatar.cc/300?u={{ user._id }}" />
+      <h4 *ngIf="selfUser" style="color: gray">Id: {{ user._id }}</h4>
+      <h2>Name: {{ user.First_Name }} {{ user.Last_Name }}</h2>
+      <h3>Role: {{ user.Role }}</h3>
+      <h4 *ngIf="selfUser">Email: {{ user.Email }}</h4>
+      <h4 *ngIf="selfUser">Phone: {{ user.Phone }}</h4>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <button
+        class="btn btn-outline-primary btn-block"
+        (click)="toggleEditMode()"
+        *ngIf="selfUser"
+      >
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container border rounded col-sm-4 mt-5" *ngIf="editMode">
   <h1>Profile</h1>
   <div class="alert alert-success" role="alert" *ngIf="isSaved">
     Profile successfully saved
@@ -92,6 +115,12 @@
     <div class="col-sm-12">
       <button class="btn btn-outline-success btn-block" (click)="updateUser()">
         Update
+      </button>
+      <button
+        class="btn btn-outline-primary btn-block"
+        (click)="toggleEditMode()"
+      >
+        Back to Profile Preview
       </button>
       <button class="btn btn-outline-danger btn-block" (click)="logout()">
         Logout

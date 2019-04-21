@@ -57,4 +57,12 @@ export class UserServiceClient {
       .then(res => res.json())
       .catch(err => console.log(err));
   };
+
+  findUserById = (uid: Number) => {
+    return fetch(this.baseURL + "/user/" + uid.toString(), {
+      credentials: "include"
+    })
+      .then(res => res.json())
+      .catch(err => console.log(err));
+  };
 }

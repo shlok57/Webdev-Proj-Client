@@ -7,13 +7,15 @@ import { ProfileComponent } from "./profile/profile.component";
 import { RegisterComponent } from "./register/register.component";
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavbarComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpModule, FormsModule],
   providers: [],
