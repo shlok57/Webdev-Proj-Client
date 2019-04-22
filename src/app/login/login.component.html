@@ -1,0 +1,46 @@
+<navbar></navbar>
+<div class="container border rounded col-sm-4 mt-5">
+  <h1>Sign In</h1>
+  <div class="form-group">
+    <label htmlFor="username" class="col-sm-12 col-form-label">
+      Username
+    </label>
+    <div class="col-sm-12">
+      <input
+        class="form-control"
+        id="username"
+        placeholder="Alice"
+        [(ngModel)]="user.Username"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="password" class="col-sm-12 col-form-label">
+      Password
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="password"
+        class="form-control wbdv-password-fld"
+        id="password"
+        placeholder="123qwe#$%"
+        [(ngModel)]="user.Password"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <button class="btn btn-outline-primary btn-block" (click)="login()">
+        Sign in
+      </button>
+      <div class="row">
+        <div class="col-6">
+          <a href="#">Forgot Password?</a>
+        </div>
+        <div class="col-6">
+          <a [routerLink]="['/register']" class="float-right">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

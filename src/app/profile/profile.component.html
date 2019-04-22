@@ -1,0 +1,130 @@
+<navbar></navbar>
+<div class="container border rounded col-sm-10 mt-3" *ngIf="!editMode">
+  <h1>Profile</h1>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <img src="http://i.pravatar.cc/300?u={{ user._id }}" />
+      <h4 *ngIf="selfUser" style="color: gray">Id: {{ user._id }}</h4>
+      <h2>Name: {{ user.First_Name }} {{ user.Last_Name }}</h2>
+      <h3>Role: {{ user.Role }}</h3>
+      <h4 *ngIf="selfUser">Email: {{ user.Email }}</h4>
+      <h4 *ngIf="selfUser">Phone: {{ user.Phone }}</h4>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <button
+        class="btn btn-outline-primary btn-block"
+        (click)="toggleEditMode()"
+        *ngIf="selfUser"
+      >
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container border rounded col-sm-4 mt-5" *ngIf="editMode">
+  <h1>Profile</h1>
+  <div class="alert alert-success" role="alert" *ngIf="isSaved">
+    Profile successfully saved
+  </div>
+  <div class="form-group">
+    <label htmlFor="username" class="col-sm-12 col-form-label">
+      Username
+    </label>
+    <div class="col-sm-12">
+      <input
+        class="form-control"
+        id="username"
+        placeholder="Alice"
+        disabled
+        [(ngModel)]="user.Username"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="firstName" class="col-sm-12 col-form-label">
+      First Name
+    </label>
+    <div class="col-sm-12">
+      <input
+        class="form-control"
+        id="firstName"
+        placeholder="First Name"
+        [(ngModel)]="user.First_Name"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="lastName" class="col-sm-12 col-form-label">
+      Last Name
+    </label>
+    <div class="col-sm-12">
+      <input
+        class="form-control"
+        id="lastName"
+        placeholder="Last Name"
+        [(ngModel)]="user.Last_Name"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="role" class="col-sm-12 col-form-label">
+      Role
+    </label>
+    <div class="col-sm-12">
+      <select
+        id="role"
+        class="col-sm-12 form-control"
+        [(ngModel)]="user.Role"
+        disabled
+      >
+        <option value="MODERATOR">Moderator</option>
+        <option value="FOODIE">Foodie</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="phone" class="col-sm-12 col-form-label">
+      Phone
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="number"
+        class="form-control"
+        id="phone"
+        placeholder="(111) 111 1111"
+        [(ngModel)]="user.Phone"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="email" class="col-sm-12 col-form-label">
+      Email
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="alice@wonderland.com"
+        [(ngModel)]="user.Email"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <button class="btn btn-outline-success btn-block" (click)="updateUser()">
+        Update
+      </button>
+      <button
+        class="btn btn-outline-primary btn-block"
+        (click)="toggleEditMode()"
+      >
+        Back to Profile Preview
+      </button>
+      <button class="btn btn-outline-danger btn-block" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

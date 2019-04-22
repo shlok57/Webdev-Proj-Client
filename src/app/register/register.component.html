@@ -1,0 +1,63 @@
+<navbar></navbar>
+<div class="container border rounded col-sm-4 mt-5">
+  <h1>Register</h1>
+  <div class="alert alert-success" role="alert" *ngIf="showErr">
+    {{ errText }}
+  </div>
+  <div class="form-group">
+    <label htmlFor="username" class="col-sm-12 col-form-label">
+      Username
+    </label>
+    <div class="col-sm-12">
+      <input
+        class="form-control"
+        id="username"
+        placeholder="Alice"
+        [(ngModel)]="username"
+        (ngModelChange)="clearErrs()"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="password" class="col-sm-12 col-form-label">
+      Password
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="123qwe#$%"
+        [(ngModel)]="password1"
+        (ngModelChange)="clearErrs()"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label htmlFor="cnfPassword" class="col-sm-12 col-form-label">
+      Confirm Password
+    </label>
+    <div class="col-sm-12">
+      <input
+        type="password"
+        class="form-control"
+        id="cnfPassword"
+        placeholder="123qwe#$%"
+        [(ngModel)]="password2"
+        (ngModelChange)="clearErrs()"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <button (click)="register()" class="btn btn-outline-primary btn-block">
+        Sign up
+      </button>
+      <div class="row">
+        <div class="col-6">
+          <a [routerLink]="['/login']">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

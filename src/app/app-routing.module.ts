@@ -1,21 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {RecipeComponent} from "./components/recipe/recipe.component";
-import {CommentComponent} from "./components/comment/comment.component";
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 const routes: Routes = [
-
-  {path:'recipe/:recipeId', component: RecipeComponent},
-  {path:'recipe/:recipeId/comment', component: CommentComponent}
+  { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent },
+  { path: "user", component: ProfileComponent },
+  { path: "user/:uid", component: ProfileComponent },
+  { path: 'recipe/:recipeId', component: RecipeComponent},
+  { path: 'recipe/:recipeId/comment', component: CommentComponent}
 ];
 
-
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}

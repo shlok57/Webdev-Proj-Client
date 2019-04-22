@@ -1,0 +1,14 @@
+<nav class="navbar bg-dark text-light">
+  <span class="navbar-brand mb-0 h1 ">WebDev Project App</span>
+  <div class="form-inline">
+    <input type="text" class="form-control mr-2" placeholder="Search" />
+    <span class="btn btn-secondary mr-sm-2">
+      <i class="fa fa-search"></i>
+    </span>
+    <a [routerLink]="['/login']">
+      <button *ngIf="showLogin" class="btn btn-outline-primary">
+        Login
+      </button>
+    </a>
+  </div>
+</nav>
