@@ -1,6 +1,6 @@
 //TODO moderator should have user object
 export class Recipe {
-  id: number;
+  _id: number;
   Description: String;
   Name: string;
   Date_Created: Date;

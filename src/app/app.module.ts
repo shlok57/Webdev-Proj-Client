@@ -6,6 +6,7 @@ import { RecipeComponent } from './components/recipe/recipe.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {RecipeService} from "./services/recipe.service";
 import { CommentComponent } from './components/comment/comment.component';
+import {CommentService} from "./services/comment.service";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CommentComponent } from './components/comment/comment.component';
     AppRoutingModule
   ],
   providers: [
-    RecipeService
+    RecipeService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

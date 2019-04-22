@@ -10,7 +10,7 @@ export class CommentService {
   BASE_URL;
   constructor(private constants: ConstantsService) {
     this.COMMENT_URL = constants.BASE_API_URL + 'comment/';
-    this.BASE_URL;
+    this.BASE_URL = constants.BASE_API_URL;
   }
 
   addComment = comment => {
@@ -24,6 +24,14 @@ export class CommentService {
     })
       .then(res => res.text())
       .then(text => text.length ? JSON.parse(text) : {});
+  }
+
+  findAllCommentsByRecipeId = recipeId => {
+
+    console.log(recipeId);
+    return fetch(this.BASE_URL + 'recipe/' + recipeId + '/comment')
+      .then(res => res.text())
+      .then(text => text.length ? JSON.parse(text): {});
   }
 
 
