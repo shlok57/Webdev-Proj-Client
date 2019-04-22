@@ -1,0 +1,19 @@
+<div class="row">
+  <h1 class="h1">{{recipe.Name}}</h1>
+  <p>By {{recipe.Moderator}} <span *ngIf="recipe.Likes !== undefined"> | Liked By: {{recipe.Likes}} people</span></p>
+  <video controls>
+    <source src="{{recipe.Video_Url}}">
+  </video>
+  <p>{{recipe.Description}}</p>
+  <img src="{{recipe.Image_Url}}" />
+  <p *ngIf="recipe.Cuisine">Cuisine: {{recipe.Cuisine}}</p>
+  <p *ngIf="recipe.Category">Category: {{recipe.Category}}</p>
+  <h3 class="h3">Ingredients</h3>
+  <ul *ngFor="let ing of recipe.Ingredients">
+    <li>{{ing}}</li>
+  </ul>
+  <h3 class="h3">Steps</h3>
+  <ul *ngFor="let step of recipe.Steps">
+    <li>{{step}}</li>
+  </ul>
+</div>

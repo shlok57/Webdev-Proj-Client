@@ -9,7 +9,7 @@ export class RecipeService {
   RECIPE_URL;
   constructor(private constants: ConstantsService) {
 
-    this.RECIPE_URL = constants.BASE_API_URL + '/api/recipe/';
+    this.RECIPE_URL = constants.BASE_API_URL + 'recipe/';
   }
 
   createRecipe = recipe => {
@@ -34,6 +34,7 @@ export class RecipeService {
 
   findRecipeById = recipeId => {
 
+    console.log(recipeId);
     return fetch(this.RECIPE_URL + recipeId)
       .then(response => response.json())
       .catch(error => Promise.reject("Error in search"));

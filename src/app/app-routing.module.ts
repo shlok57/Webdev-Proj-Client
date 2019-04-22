@@ -4,7 +4,7 @@ import {RecipeComponent} from "./components/recipe/recipe.component";
 
 const routes: Routes = [
 
-  {path: 'recipe', component: RecipeComponent}
+  {path: 'recipe/:recipeId', component: RecipeComponent}
 ];
 
 

@@ -12,12 +12,17 @@ export class RecipeComponent implements OnInit {
 
   constructor(private service: RecipeService, private activatedRoute: ActivatedRoute) { }
 
-  recipe: Recipe;
+  recipe: Recipe = new Recipe();
   ngOnInit() {
     this.activatedRoute.params.subscribe( params => {
       this.recipe.id = params['recipeId'];
       this.service.findRecipeById(this.recipe.id)
-        .then(recipe => this.recipe = recipe);
+        .then(recipe => {
+          this.recipe = recipe;
+          console.log(recipe);
+          console.log(this.recipe);
+        }
+        );
     });
   }
 
