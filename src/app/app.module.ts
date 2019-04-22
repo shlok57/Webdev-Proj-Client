@@ -8,6 +8,10 @@ import { RegisterComponent } from "./register/register.component";
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { NavbarComponent } from './navbar/navbar.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
+import {RecipeService} from "./services/recipe.service";
+import { CommentComponent } from './components/comment/comment.component';
+import {CommentService} from "./services/comment.service";
 
 @NgModule({
   declarations: [
@@ -15,10 +19,15 @@ import { NavbarComponent } from './navbar/navbar.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    NavbarComponent
+    NavbarComponent,
+    RecipeComponent,
+    CommentComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpModule, FormsModule],
-  providers: [],
+  providers: [
+    RecipeService,
+    CommentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
