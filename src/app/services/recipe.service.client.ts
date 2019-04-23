@@ -17,7 +17,8 @@ export class RecipeServiceClient {
       totalTime: result["totalTime"],
       numberOfServings: result["numberOfServings"],
       yummlyRating: result["rating"],
-      yummlyId: result["id"]
+      yummlyId: result["id"],
+      sourceRecipeUrl: result["source"]["sourceRecipeUrl"]
     };
     return fetch(this.RECIPE_URL, {
       method: "post",

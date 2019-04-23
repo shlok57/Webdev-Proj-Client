@@ -1,9 +1,6 @@
 <search-bar></search-bar>
 
-<div
-  class="recipe-details has-image"
-  [ngStyle]="{ 'background-image': getImageUrl() }"
->
+<div class="recipe-details has-image">
   <div class="container proj-recipe-details-top">
     <div class="row">
       <div class="col-lg-5 col-sm-12 text-center">
@@ -19,7 +16,7 @@
         <h1>{{ recipeDetails["name"] }}</h1>
         <br />
         <button
-          class="btn btn-success"
+          class="btn btn-outline-success"
           *ngIf="
             !currentUser.username ||
             (!isRecipeLiked && currentUser.role !== 'ADMIN')
@@ -29,7 +26,7 @@
           Like
         </button>
         <button
-          class="btn btn-danger"
+          class="btn btn-outline-danger"
           *ngIf="isRecipeLiked && currentUser.role !== 'ADMIN'"
           (click)="unlike()"
         >
@@ -70,196 +67,208 @@
 </div>
 
 <div class="container">
-  <ul class="list-group proj-recipe">
-    <li class="list-group-item proj-ingredients-heading">Ingredients</li>
-    <li
-      *ngFor="let ingredient of recipeDetails['ingredients']"
-      class="list-group-item"
-    >
-      {{ ingredient }}
-    </li>
-  </ul>
-
-  <span *ngIf="currentUser.role !== 'ADMIN'">
-    <h4>Rate {{ recipeDetails["name"] }}:</h4>
-    <div
-      class="alert alert-success alert-dismissible fade show"
-      role="alert"
-      *ngIf="alertReview == true"
-    >
-      Rating submitted successfully
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        (click)="removeReviewAlert()"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="row">
+    <div class="col-6">
+      <ul class="list-group proj-recipe">
+        <li class="list-group-item proj-ingredients-heading">Ingredients</li>
+        <li
+          *ngFor="let ingredient of recipeDetails['ingredients']"
+          class="list-group-item"
+        >
+          {{ ingredient }}
+        </li>
+        <li class="list-group-item proj-ingredients-heading">
+          <a
+            class="btn btn-outline-light"
+            href="{{ recipeDetails['sourceRecipeUrl'] }}"
+            >View Recipe</a
+          >
+        </li>
+      </ul>
     </div>
+    <div class="col-6">
+      <span *ngIf="currentUser.role !== 'ADMIN'" style="padding:2px">
+        <h4>Rate {{ recipeDetails["name"] }}:</h4>
+        <div
+          class="alert alert-success alert-dismissible fade show"
+          role="alert"
+          *ngIf="alertReview == true"
+        >
+          Rating submitted successfully
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            (click)="removeReviewAlert()"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-    <div class="proj-rating">
-      <input
-        type="radio"
-        id="star5"
-        name="rating"
-        [checked]="newRating === 5"
-        (click)="changeRating(5)"
-      />
-      <label class="full" for="star5" title="OUTSTANDING"> </label>
-      <input
-        type="radio"
-        id="star4"
-        name="rating"
-        [checked]="newRating === 4"
-        (click)="changeRating(4)"
-      />
-      <label class="full" for="star4" title="REALLY GOOD"> </label>
-      <input
-        type="radio"
-        id="star3"
-        name="rating"
-        [checked]="newRating === 3"
-        (click)="changeRating(3)"
-      />
-      <label class="full" for="star3" title="JUST GOOD"> </label>
-      <input
-        type="radio"
-        id="star2"
-        name="rating"
-        [checked]="newRating === 2"
-        (click)="changeRating(2)"
-      />
-      <label class="full" for="star2" title="SO SO"> </label>
-      <input
-        type="radio"
-        id="star1"
-        name="rating"
-        [checked]="newRating === 1"
-        (click)="changeRating(1)"
-      />
-      <label class="full" for="star1" title="DIDN'T LIKE IT"> </label>
+        <div class="proj-rating">
+          <input
+            type="radio"
+            id="star5"
+            name="rating"
+            [checked]="newRating === 5"
+            (click)="changeRating(5)"
+          />
+          <label class="full" for="star5" title="OUTSTANDING"> </label>
+          <input
+            type="radio"
+            id="star4"
+            name="rating"
+            [checked]="newRating === 4"
+            (click)="changeRating(4)"
+          />
+          <label class="full" for="star4" title="REALLY GOOD"> </label>
+          <input
+            type="radio"
+            id="star3"
+            name="rating"
+            [checked]="newRating === 3"
+            (click)="changeRating(3)"
+          />
+          <label class="full" for="star3" title="JUST GOOD"> </label>
+          <input
+            type="radio"
+            id="star2"
+            name="rating"
+            [checked]="newRating === 2"
+            (click)="changeRating(2)"
+          />
+          <label class="full" for="star2" title="SO SO"> </label>
+          <input
+            type="radio"
+            id="star1"
+            name="rating"
+            [checked]="newRating === 1"
+            (click)="changeRating(1)"
+          />
+          <label class="full" for="star1" title="DIDN'T LIKE IT"> </label>
+        </div>
+        <br /><br />
+
+        <div
+          class="form-group"
+          *ngIf="currentUser.role === 'Critic' && newRating !== 0"
+        >
+          <textarea
+            [(ngModel)]="newReview"
+            rows="4"
+            placeholder="Write something about {{ recipeDetails['name'] }}"
+            class="form-control"
+          >
+          </textarea>
+        </div>
+
+        <div *ngIf="newRating !== 0 && myRatingId === ''">
+          <button (click)="rate()" class="btn btn-dark">
+            Submit
+          </button>
+        </div>
+
+        <div *ngIf="newRating !== 0 && myRatingId !== ''">
+          <button (click)="updateRating()" class="btn btn-dark">
+            Update
+          </button>
+        </div>
+      </span>
+
+      <hr />
+
+      <h4>Critic's Reviews ({{ reviewedUsers.length }})</h4>
+
+      <ul class="list-group proj-recipe">
+        <li
+          *ngFor="let reviewedUser of reviewedUsers"
+          (click)="goToUserProfile(reviewedUser.user.username)"
+          class="list-group-item proj-group-item proj-linebreaks"
+        >
+          <b>{{ reviewedUser.user.username }}</b>
+
+          <div class="proj-rated">
+            <input
+              type="radio"
+              id="star5b"
+              [ngClass]="{ highlight: reviewedUser.rating === 5 }"
+            />
+            <label for="star5b" title="OUTSTANDING"> </label>
+            <input
+              type="radio"
+              id="star4b"
+              [ngClass]="{ highlight: reviewedUser.rating === 4 }"
+            />
+            <label for="star4b" title="REALLY GOOD"> </label>
+            <input
+              type="radio"
+              id="star3b"
+              [ngClass]="{ highlight: reviewedUser.rating === 3 }"
+            />
+            <label for="star3b" title="JUST GOOD"> </label>
+            <input
+              type="radio"
+              id="star2b"
+              [ngClass]="{ highlight: reviewedUser.rating === 2 }"
+            />
+            <label for="star2b" title="SO SO"> </label>
+            <input
+              type="radio"
+              id="star1b"
+              [ngClass]="{ highlight: reviewedUser.rating === 1 }"
+            />
+            <label for="star1b" title="DIDN'T LIKE IT"> </label>
+          </div>
+
+          <div class="proj-review">{{ reviewedUser.review }}</div>
+        </li>
+      </ul>
+
+      <h4>Ratings ({{ ratedUsers.length }})</h4>
+
+      <ul class="list-group proj-recipe">
+        <li
+          *ngFor="let ratedUser of ratedUsers"
+          (click)="goToUserProfile(ratedUser.user.username)"
+          class="list-group-item proj-group-item"
+        >
+          <b>{{ ratedUser.user.username }}</b>
+
+          <div class="proj-rated">
+            <input
+              type="radio"
+              id="star5a"
+              [ngClass]="{ highlight: ratedUser.rating === 5 }"
+            />
+            <label for="star5a" title="OUTSTANDING"> </label>
+            <input
+              type="radio"
+              id="star4a"
+              [ngClass]="{ highlight: ratedUser.rating === 4 }"
+            />
+            <label for="star4a" title="REALLY GOOD"> </label>
+            <input
+              type="radio"
+              id="star3a"
+              [ngClass]="{ highlight: ratedUser.rating === 3 }"
+            />
+            <label for="star3a" title="JUST GOOD"> </label>
+            <input
+              type="radio"
+              id="star2a"
+              [ngClass]="{ highlight: ratedUser.rating === 2 }"
+            />
+            <label for="star2a" title="SO SO"> </label>
+            <input
+              type="radio"
+              id="star1a"
+              [ngClass]="{ highlight: ratedUser.rating === 1 }"
+            />
+            <label for="star1a" title="DIDN'T LIKE IT"> </label>
+          </div>
+        </li>
+      </ul>
     </div>
-    <br /><br />
-
-    <div
-      class="form-group"
-      *ngIf="currentUser.role === 'Critic' && newRating !== 0"
-    >
-      <textarea
-        [(ngModel)]="newReview"
-        rows="4"
-        placeholder="Write something about {{ recipeDetails['name'] }}"
-        class="form-control"
-      >
-      </textarea>
-    </div>
-
-    <div *ngIf="newRating !== 0 && myRatingId === ''">
-      <button (click)="rate()" class="btn btn-dark">
-        Submit
-      </button>
-    </div>
-
-    <div *ngIf="newRating !== 0 && myRatingId !== ''">
-      <button (click)="updateRating()" class="btn btn-dark">
-        Update
-      </button>
-    </div>
-  </span>
-
-  <hr />
-
-  <h4>Critic's Reviews ({{ reviewedUsers.length }})</h4>
-
-  <ul class="list-group proj-recipe">
-    <li
-      *ngFor="let reviewedUser of reviewedUsers"
-      (click)="goToUserProfile(reviewedUser.user.username)"
-      class="list-group-item proj-group-item proj-linebreaks"
-    >
-      <b>{{ reviewedUser.user.username }}</b>
-
-      <div class="proj-rated">
-        <input
-          type="radio"
-          id="star5b"
-          [ngClass]="{ highlight: reviewedUser.rating === 5 }"
-        />
-        <label for="star5b" title="OUTSTANDING"> </label>
-        <input
-          type="radio"
-          id="star4b"
-          [ngClass]="{ highlight: reviewedUser.rating === 4 }"
-        />
-        <label for="star4b" title="REALLY GOOD"> </label>
-        <input
-          type="radio"
-          id="star3b"
-          [ngClass]="{ highlight: reviewedUser.rating === 3 }"
-        />
-        <label for="star3b" title="JUST GOOD"> </label>
-        <input
-          type="radio"
-          id="star2b"
-          [ngClass]="{ highlight: reviewedUser.rating === 2 }"
-        />
-        <label for="star2b" title="SO SO"> </label>
-        <input
-          type="radio"
-          id="star1b"
-          [ngClass]="{ highlight: reviewedUser.rating === 1 }"
-        />
-        <label for="star1b" title="DIDN'T LIKE IT"> </label>
-      </div>
-
-      <div class="proj-review">{{ reviewedUser.review }}</div>
-    </li>
-  </ul>
-
-  <h4>Ratings ({{ ratedUsers.length }})</h4>
-
-  <ul class="list-group proj-recipe">
-    <li
-      *ngFor="let ratedUser of ratedUsers"
-      (click)="goToUserProfile(ratedUser.user.username)"
-      class="list-group-item proj-group-item"
-    >
-      <b>{{ ratedUser.user.username }}</b>
-
-      <div class="proj-rated">
-        <input
-          type="radio"
-          id="star5a"
-          [ngClass]="{ highlight: ratedUser.rating === 5 }"
-        />
-        <label for="star5a" title="OUTSTANDING"> </label>
-        <input
-          type="radio"
-          id="star4a"
-          [ngClass]="{ highlight: ratedUser.rating === 4 }"
-        />
-        <label for="star4a" title="REALLY GOOD"> </label>
-        <input
-          type="radio"
-          id="star3a"
-          [ngClass]="{ highlight: ratedUser.rating === 3 }"
-        />
-        <label for="star3a" title="JUST GOOD"> </label>
-        <input
-          type="radio"
-          id="star2a"
-          [ngClass]="{ highlight: ratedUser.rating === 2 }"
-        />
-        <label for="star2a" title="SO SO"> </label>
-        <input
-          type="radio"
-          id="star1a"
-          [ngClass]="{ highlight: ratedUser.rating === 1 }"
-        />
-        <label for="star1a" title="DIDN'T LIKE IT"> </label>
-      </div>
-    </li>
-  </ul>
+  </div>
 </div>
