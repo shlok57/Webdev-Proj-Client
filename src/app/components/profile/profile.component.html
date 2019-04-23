@@ -205,79 +205,7 @@
     </ul>
   </div>
 
-  <div
-    class="wbdv-selection"
-    *ngIf="selection === 'Update Profile' || user.role === 'Admin'"
-  >
-    <div
-      class="alert alert-success alert-dismissible fade show"
-      role="alert"
-      *ngIf="alertSuccess == true"
-    >
-      Profile updated successfully.
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        (click)="removeAlert()"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
 
-    <div class="form-group">
-      <label>Username</label>
-
-      <input
-        readonly
-        [(ngModel)]="user['username']"
-        placeholder="username"
-        class="form-control"
-      />
-    </div>
-
-    <div class="form-group">
-      <label>First Name</label>
-      <input
-        [(ngModel)]="user['firstName']"
-        placeholder="first name"
-        class="form-control"
-      />
-    </div>
-
-    <div class="form-group">
-      <label>Last Name</label>
-      <input
-        [(ngModel)]="user['lastName']"
-        placeholder="lastName"
-        class="form-control"
-      />
-    </div>
-
-    <div class="form-group">
-      <label>Email</label>
-      <input
-        [(ngModel)]="user['email']"
-        placeholder="email"
-        class="form-control"
-      />
-    </div>
-
-    <div class="form-group">
-      <label>Role</label>
-      <input
-        readonly
-        [(ngModel)]="user['role']"
-        placeholder="role"
-        class="form-control"
-      />
-    </div>
-
-    <button (click)="update(user)" class="btn btn-dark btn-block">
-      Update
-    </button>
-  </div>
 
   <div class="wbdv-selection" *ngIf="selection === 'Your Recipes'">
     <ng-template #content let-c="close" let-d="dismiss">
@@ -394,5 +322,193 @@
         ></button>
       </li>
     </ul>
+  </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Profile
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body wbdv-selection">
+          <div
+            class="alert alert-success alert-dismissible fade show"
+            role="alert"
+            *ngIf="alertSuccess == true"
+          >
+            Profile updated successfully.
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              (click)="removeAlert()"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label>Username</label>
+
+            <input
+              readonly
+              [(ngModel)]="user['username']"
+              placeholder="username"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>First Name</label>
+            <input
+              [(ngModel)]="user['firstName']"
+              placeholder="first name"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Last Name</label>
+            <input
+              [(ngModel)]="user['lastName']"
+              placeholder="lastName"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              [(ngModel)]="user['email']"
+              placeholder="email"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Role</label>
+            <input
+              readonly
+              [(ngModel)]="user['role']"
+              placeholder="role"
+              class="form-control"
+            />
+          </div>
+
+          <button (click)="update(user)" class="btn btn-dark btn-block">
+            Update
+          </button>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="card" *ngIf="user.role != 'ADMIN'">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Liked Recipes
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        <ul class="list-group">
+          <li
+            *ngFor="let likedRecipe of likedRecipes"
+            (click)="navigateToRecipe(likedRecipe)"
+            class="list-group-item wbdv-liked-recipe">
+            <b>{{ likedRecipe.recipe.name }}</b>
+            <button
+              class="btn btn-warning float-right"
+              (click)="unlike(likedRecipe)">
+              Unlike
+            </button>
+          </li>
+        </ul>
+        </div>
+    </div>
+
+    <div class="card" *ngIf="user.role != 'ADMIN'">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Rated Recipes
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+          <ul class="list-group">
+            <li
+              *ngFor="let ratedRecipe of ratedRecipes"
+              (click)="navigateToRecipe(ratedRecipe)"
+              class="list-group-item wbdv-rated-recipe">
+              <b>{{ ratedRecipe.recipe.name }}</b>
+
+              <div class="wbdv-rated">
+                <input
+                  type="radio"
+                  id="star5a"
+                  [ngClass]="{ highlight: ratedRecipe.rating === 5 }"/>
+                <label for="star5a" title="OUTSTANDING"> </label>
+                <input
+                  type="radio"
+                  id="star4a"
+                  [ngClass]="{ highlight: ratedRecipe.rating === 4 }"/>
+                <label for="star4a" title="REALLY GOOD"> </label>
+                <input
+                  type="radio"
+                  id="star3a"
+                  [ngClass]="{ highlight: ratedRecipe.rating === 3 }" />
+                <label for="star3a" title="JUST GOOD"> </label>
+                <input
+                  type="radio"
+                  id="star2a"
+                  [ngClass]="{ highlight: ratedRecipe.rating === 2 }"/>
+                <label for="star2a" title="SO SO"> </label>
+                <input
+                  type="radio"
+                  id="star1a"
+                  [ngClass]="{ highlight: ratedRecipe.rating === 1 }"/>
+                <label for="star1a" title="DIDN'T LIKE IT"> </label>
+              </div>
+
+              <div class="wbdv-review">{{ ratedRecipe.review }}</div>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="user.role != 'ADMIN'">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Followers
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+        <div class="card-body">
+          <ul class="list-group">
+            <li
+              *ngFor="let follower of followers"
+              (click)="navigateToFollowerProfile(follower)"
+              class="list-group-item wbdv-follower"
+            >
+              <b>{{ follower.from.username }}</b>
+            </li>
+          </ul>
+          </div>
+      </div>
+    </div>
   </div>
 </div>
