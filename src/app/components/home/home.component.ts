@@ -66,7 +66,11 @@ export class HomeComponent implements OnInit {
       .then(() =>  {
         this.topRatedRecipes = this.topRatedRecipes.slice(0,5);
         this.topRatedRecipes = this.topRatedRecipes.sort((a, b) => {
-          return a.numberOfServings - b.numberOfServings;
+          try {
+            return a.numberOfServings - b.numberOfServings;
+          }catch(e) {
+            return 0;
+          }
       });
       });
   }
