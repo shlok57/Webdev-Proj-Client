@@ -1,25 +1,30 @@
 <search-bar></search-bar>
 
 <div class="wbdv-top-container">
-  <mdb-carousel
-    [interval]="4000"
-    [isControls]="true"
-    class="carousel slide"
-    [noPause]="true"
-    [type]="'carousel-thumbnails'"
-    [animation]="'slide'"
-  >
-    <mdb-slide *ngFor="let slide of slides">
-      <div class="view">
-        <img class="d-block w-100 img-fluid" src="{{ slide.imageSrc }}" />
-        <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
-      </div>
-      <div class="carousel-caption">
-        <h3 class="h3-responsive">{{ slide.mainHeading }}</h3>
-        <p>{{ slide.subHeading }}</p>
-      </div>
-    </mdb-slide>
-  </mdb-carousel>
+  <div class="row">
+  <div class="col-6" *ngIf="likedRecipes.length > 0">
+    <h5 class="h5">Few Recipes you have liked</h5>
+    <ul class="list-group">
+      <li
+        *ngFor="let likedRecipe of likedRecipes"
+        (click)="navigateToRecipe(likedRecipe)"
+        class="list-group-item wbdv-liked-recipe">
+        <b>{{ likedRecipe.recipe.name }}</b>
+      </li>
+    </ul>
+  </div>
+  <div class="col-6" *ngIf="topRatedRecipes.length > 0">
+    <h5 class="h5">Recipes With Least Ingredients</h5>
+    <ul class="list-group">
+      <li
+        *ngFor="let ratedRecipe of topRatedRecipes"
+        (click)="navigateToRecipe(ratedRecipe)"
+        class="list-group-item wbdv-liked-recipe">
+        <b>{{ ratedRecipe.name }}</b>
+      </li>
+    </ul>
+  </div>
+  </div>
 </div>
 
 <h2>Favourites</h2>

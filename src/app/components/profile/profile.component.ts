@@ -271,7 +271,7 @@ export class ProfileComponent implements OnInit {
       });
     this.userService.profileOfUser(username).then(user => {
       console.log(user);
-      if (user.role === "Admin") {
+      if (user.role === "ADMIN") {
         this.router.navigate(["profile"]);
       }
       this.user = user;
@@ -287,7 +287,7 @@ export class ProfileComponent implements OnInit {
     if (!this.notSelfProfile) {
       this.userService.profile().then(user => {
         if (user["username"]) {
-          if (user.role === "Admin") {
+          if (user.role === "ADMIN") {
             this.selection = "Manage Users";
           }
           this.user = user;

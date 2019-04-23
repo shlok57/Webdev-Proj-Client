@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { YummlyServiceClient } from "src/app/services/yummly.service.client";
+import {LikeServiceClient} from '../../services/like.service.client';
+import {RecipeServiceClient} from '../../services/recipe.service.client';
+import {Recipe} from '../../models/recipe.model.client';
 
 @Component({
   selector: "app-home",
@@ -10,24 +13,10 @@ import { YummlyServiceClient } from "src/app/services/yummly.service.client";
 export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
+    private likeService: LikeServiceClient,
+    private recipeService: RecipeServiceClient,
     private yummlyService: YummlyServiceClient
   ) {}
-
-  slides = [
-    {
-      imageSrc:
-        "http://www.hhdenver.com/data1/images/fullhdwallpaperfood65.jpg",
-      mainHeading: "OUR RECIPES",
-      subHeading:
-        "Tried, tested, tasted and reviewed by the best of critics and our thousands of customers and chefs"
-    },
-    {
-      imageSrc:
-        "https://dmkz2i5qfmsty.cloudfront.net/aa7c2b48-6a24-4cf1-81de-682a0ed78ed3.jpg",
-      mainHeading: "OUR SERVICE",
-      subHeading: "Search among thousands of chef specials!"
-    }
-  ];
 
   getImageUrl(url: String) {
     return url.replace("s90", "s320-c-rj-v1-e365");
@@ -45,11 +34,40 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["search/" + recipeName + "/" + yummlyId]);
   }
 
+  navigateToRecipe(likedRecipe) {
+    if (likedRecipe.recipe.yummlyId) {
+      this.router.navigate([
+        "search/" + likedRecipe.recipe.name + "/" + likedRecipe.recipe.yummlyId
+      ]);
+    } else {
+      this.router.navigate([
+        "search/" +
+        likedRecipe.recipe.name +
+        "/foodfood-" +
+        likedRecipe.recipe._id
+      ]);
+    }
+  }
+
   dishes: any;
+  likedRecipes: Recipe[];
+  topRatedRecipes: Recipe[];
   ngOnInit() {
     this.yummlyService.findHomePageRecipes().then(res => {
       this.dishes = res.matches;
       console.log(this.dishes);
     });
+    this.likeService
+      .findLikedRecipesForCurrentUser()
+      .then(recipes => (this.likedRecipes = recipes))
+      .then(() => this.likedRecipes = this.likedRecipes.slice(0, 5));
+
+    this.recipeService.findAllRecipes().then(recipes => this.topRatedRecipes = recipes)
+      .then(() =>  {
+        this.topRatedRecipes = this.topRatedRecipes.slice(0,5);
+        this.topRatedRecipes = this.topRatedRecipes.sort((a, b) => {
+          return a.numberOfServings - b.numberOfServings;
+      });
+      });
   }
 }
