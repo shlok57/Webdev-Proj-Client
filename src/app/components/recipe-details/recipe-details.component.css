@@ -3,17 +3,17 @@
   margin-top: 1.25em;
 }
 
-.wbdv-recipe {
+.proj-recipe {
   margin-bottom: 1.25em;
   margin-top: 1.25em;
 }
 
-.wbdv-recipe-summary {
+.proj-recipe-summary {
   color: #a3a3a3;
   text-align: center;
 }
 
-.wbdv-recipe-summary-item {
+.proj-recipe-summary-item {
   position: relative;
   cursor: default;
   display: inline-block;
@@ -21,26 +21,24 @@
   font-size: 1.125em;
 }
 
-.wbdv-recipe-summary-item .value {
-  font-family: Helvetica Neue, Roboto Thin, Roboto Light, Roboto,
-    HelveticaNeue Light, Helvetica Neue Light, Segoe UI, sans-serif;
+.proj-recipe-summary-item .value {
   font-weight: 100;
   font-size: 2.25em;
   color: #e16120;
   margin: 0.1em;
 }
 
-.wbdv-ingredients-heading {
+.proj-ingredients-heading {
   background-color: #343a40;
   color: white;
 }
 
-.wbdv-image-wrap {
+.proj-image-wrap {
   display: inline-block;
   position: relative;
 }
 
-.wbdv-like-button {
+.proj-like-button {
   border-radius: 35px;
   background-color: #f3f3f3;
   position: absolute;
@@ -51,12 +49,12 @@
   z-index: 1;
 }
 
-.wbdv-like-icon {
+.proj-like-icon {
   color: #343a40;
   font-size: 25px;
 }
 
-.wbdv-liked-button {
+.proj-liked-button {
   border-radius: 35px;
   background-color: #343a40;
   position: absolute;
@@ -67,25 +65,25 @@
   z-index: 1;
 }
 
-.wbdv-liked-icon {
+.proj-liked-icon {
   color: #e16120;
   font-size: 25px;
 }
 
-.wbdv-group-item {
+.proj-group-item {
   cursor: pointer;
 }
 
-.wbdv-rating {
+.proj-rating {
   border: none;
   float: left;
 }
 
-.wbdv-rating > input {
+.proj-rating > input {
   display: none;
 }
 
-.wbdv-rating > label:before {
+.proj-rating > label:before {
   margin: 5px;
   font-size: 1.25em;
   font-family: FontAwesome;
@@ -93,40 +91,40 @@
   content: "\f005";
 }
 
-.wbdv-rating > label {
+.proj-rating > label {
   color: #ddd;
   float: right;
 }
 
-.wbdv-rating > input:checked ~ label, /* show gold star when clicked */
-.wbdv-rating:not(:checked) > label:hover, /* hover current star */
-.wbdv-rating:not(:checked) > label:hover ~ label {
+.proj-rating > input:checked ~ label, /* show gold star when clicked */
+.proj-rating:not(:checked) > label:hover, /* hover current star */
+.proj-rating:not(:checked) > label:hover ~ label {
   color: #e16120;
 }
 
 /* hover previous stars in list */
 
-.wbdv-rating > input:checked + label:hover, /* hover current star when changing rating */
-.wbdv-rating > input:checked ~ label:hover,
-.wbdv-rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.wbdv-rating > input:checked ~ label:hover ~ label {
+.proj-rating > input:checked + label:hover, /* hover current star when changing rating */
+.proj-rating > input:checked ~ label:hover,
+.proj-rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.proj-rating > input:checked ~ label:hover ~ label {
   color: #ffa577;
 }
 
-.wbdv-rated {
+.proj-rated {
   border: none;
   float: right;
 }
 
-.wbdv-rated .highlight ~ label {
+.proj-rated .highlight ~ label {
   color: #e16120;
 }
 
-.wbdv-rated > input {
+.proj-rated > input {
   display: none;
 }
 
-.wbdv-rated > label:before {
+.proj-rated > label:before {
   margin: 5px;
   font-size: 1.25em;
   font-family: FontAwesome;
@@ -134,16 +132,16 @@
   content: "\f005";
 }
 
-.wbdv-rated > label {
+.proj-rated > label {
   color: #ddd;
   float: right;
 }
 
-.wbdv-linebreaks {
+.proj-linebreaks {
   white-space: pre;
 }
 
-.wbdv-review {
+.proj-review {
   white-space: normal;
   width: 100%;
   word-wrap: break-word;

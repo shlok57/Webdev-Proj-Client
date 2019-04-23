@@ -198,10 +198,8 @@ export class ProfileComponent implements OnInit {
       .then(recipes => (this.createdRecipes = recipes));
   };
 
-  ngOnInit = () => {
+  ngOnInit() {
     this.userService.profile().then(user => {
-      console.log(user);
-      alert("asd");
       if (user["username"]) {
         if (user.role === "Admin") {
           this.selection = "Manage Users";
@@ -213,9 +211,8 @@ export class ProfileComponent implements OnInit {
         this.loadFollowingForUser();
         this.loadCreatedRecipes();
       } else {
-        alert("asdqwe");
         this.router.navigate(["login"]);
       }
     });
-  };
+  }
 }
