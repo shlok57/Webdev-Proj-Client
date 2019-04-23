@@ -1,130 +1,398 @@
-<navbar></navbar>
-<div class="container border rounded col-sm-10 mt-3" *ngIf="!editMode">
-  <h1>Profile</h1>
-  <div class="row">
-    <div class="col-lg-6 col-sm-12">
-      <img src="http://i.pravatar.cc/300?u={{ user._id }}" />
-      <h4 *ngIf="selfUser" style="color: gray">Id: {{ user._id }}</h4>
-      <h2>Name: {{ user.First_Name }} {{ user.Last_Name }}</h2>
-      <h3>Role: {{ user.Role }}</h3>
-      <h4 *ngIf="selfUser">Email: {{ user.Email }}</h4>
-      <h4 *ngIf="selfUser">Phone: {{ user.Phone }}</h4>
-    </div>
-    <div class="col-lg-6 col-sm-12">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a routerLink="/home">
+    <h3 class="navbar-brand">
+      FoodFood
+    </h3>
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div
+    class="collapse navbar-collapse"
+    [ngbCollapse]="isCollapsed"
+    id="navbarSupportedContent"
+  >
+    <ul class="navbar-nav mr-auto"></ul>
+
+    <div class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control wbdv-navbar-search"
+        [(ngModel)]="searchText"
+        (keyup.enter)="navigate(searchText)"
+        placeholder="Search for recipes"
+      />
       <button
-        class="btn btn-outline-primary btn-block"
-        (click)="toggleEditMode()"
-        *ngIf="selfUser"
+        type="button"
+        (click)="navigate(searchText)"
+        class="btn btn-dark wbdv-search-button"
       >
-        Edit Profile
+        <span class="fa fa-search"></span>
       </button>
     </div>
-  </div>
-</div>
-<div class="container border rounded col-sm-4 mt-5" *ngIf="editMode">
-  <h1>Profile</h1>
-  <div class="alert alert-success" role="alert" *ngIf="isSaved">
-    Profile successfully saved
-  </div>
-  <div class="form-group">
-    <label htmlFor="username" class="col-sm-12 col-form-label">
-      Username
-    </label>
-    <div class="col-sm-12">
-      <input
-        class="form-control"
-        id="username"
-        placeholder="Alice"
-        disabled
-        [(ngModel)]="user.Username"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <label htmlFor="firstName" class="col-sm-12 col-form-label">
-      First Name
-    </label>
-    <div class="col-sm-12">
-      <input
-        class="form-control"
-        id="firstName"
-        placeholder="First Name"
-        [(ngModel)]="user.First_Name"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <label htmlFor="lastName" class="col-sm-12 col-form-label">
-      Last Name
-    </label>
-    <div class="col-sm-12">
-      <input
-        class="form-control"
-        id="lastName"
-        placeholder="Last Name"
-        [(ngModel)]="user.Last_Name"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <label htmlFor="role" class="col-sm-12 col-form-label">
-      Role
-    </label>
-    <div class="col-sm-12">
-      <select
-        id="role"
-        class="col-sm-12 form-control"
-        [(ngModel)]="user.Role"
-        disabled
-      >
-        <option value="MODERATOR">Moderator</option>
-        <option value="FOODIE">Foodie</option>
-        <option value="ADMIN">Admin</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-group">
-    <label htmlFor="phone" class="col-sm-12 col-form-label">
-      Phone
-    </label>
-    <div class="col-sm-12">
-      <input
-        type="number"
-        class="form-control"
-        id="phone"
-        placeholder="(111) 111 1111"
-        [(ngModel)]="user.Phone"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <label htmlFor="email" class="col-sm-12 col-form-label">
-      Email
-    </label>
-    <div class="col-sm-12">
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        placeholder="alice@wonderland.com"
-        [(ngModel)]="user.Email"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <button class="btn btn-outline-success btn-block" (click)="updateUser()">
-        Update
-      </button>
+
+    <div class="form-inline my-2 my-lg-0">
       <button
-        class="btn btn-outline-primary btn-block"
-        (click)="toggleEditMode()"
+        class="btn btn-outline-light my-2 my-sm-0"
+        (click)="logout()"
+        type="button"
       >
-        Back to Profile Preview
-      </button>
-      <button class="btn btn-outline-danger btn-block" (click)="logout()">
         Logout
       </button>
     </div>
+
+    <div class="form-inline my-2 my-lg-0" *ngIf="user['role'] === 'Admin'">
+      <a routerLink="/admin">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="button">
+          Admin Page
+        </button>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid wbdv-profile">
+  <div class="wbdv-nav" *ngIf="user.role !== 'Admin'">
+    <nav class="nav nav-pills nav-justified">
+      <div
+        class="nav-item nav-link"
+        [ngClass]="{ active: selection === 'Liked Recipes' }"
+        (click)="changeSelection('Liked Recipes')"
+      >
+        Liked Recipes
+      </div>
+      <div
+        class="nav-item nav-link"
+        [ngClass]="{ active: selection === 'Rated Recipes' }"
+        (click)="changeSelection('Rated Recipes')"
+      >
+        Rated Recipes
+      </div>
+      <div
+        class="nav-item nav-link"
+        [ngClass]="{ active: selection === 'Followers' }"
+        (click)="changeSelection('Followers')"
+      >
+        Followers
+      </div>
+      <div
+        class="nav-item nav-link"
+        [ngClass]="{ active: selection === 'Following' }"
+        (click)="changeSelection('Following')"
+      >
+        Following
+      </div>
+      <div
+        class="nav-item nav-link"
+        [ngClass]="{ active: selection === 'Your Recipes' }"
+        *ngIf="user.role === 'Chef'"
+        (click)="changeSelection('Your Recipes')"
+      >
+        Your Recipes
+      </div>
+      <div
+        class="nav-item nav-link"
+        [ngClass]="{ active: selection === 'Update Profile' }"
+        (click)="changeSelection('Update Profile')"
+      >
+        Update Profile
+      </div>
+    </nav>
+  </div>
+
+  <div class="wbdv-selection" *ngIf="selection === 'Liked Recipes'">
+    <ul class="list-group">
+      <li
+        *ngFor="let likedRecipe of likedRecipes"
+        (click)="navigateToRecipe(likedRecipe)"
+        class="list-group-item wbdv-liked-recipe"
+      >
+        <b>{{ likedRecipe.recipe.name }}</b>
+        <button
+          class="btn btn-warning float-right"
+          (click)="unlike(likedRecipe)"
+        >
+          Unlike
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="wbdv-selection" *ngIf="selection === 'Rated Recipes'">
+    <ul class="list-group">
+      <li
+        *ngFor="let ratedRecipe of ratedRecipes"
+        (click)="navigateToRecipe(ratedRecipe)"
+        class="list-group-item wbdv-rated-recipe"
+      >
+        <b>{{ ratedRecipe.recipe.name }}</b>
+
+        <div class="wbdv-rated">
+          <input
+            type="radio"
+            id="star5a"
+            [ngClass]="{ highlight: ratedRecipe.rating === 5 }"
+          />
+          <label for="star5a" title="OUTSTANDING"> </label>
+          <input
+            type="radio"
+            id="star4a"
+            [ngClass]="{ highlight: ratedRecipe.rating === 4 }"
+          />
+          <label for="star4a" title="REALLY GOOD"> </label>
+          <input
+            type="radio"
+            id="star3a"
+            [ngClass]="{ highlight: ratedRecipe.rating === 3 }"
+          />
+          <label for="star3a" title="JUST GOOD"> </label>
+          <input
+            type="radio"
+            id="star2a"
+            [ngClass]="{ highlight: ratedRecipe.rating === 2 }"
+          />
+          <label for="star2a" title="SO SO"> </label>
+          <input
+            type="radio"
+            id="star1a"
+            [ngClass]="{ highlight: ratedRecipe.rating === 1 }"
+          />
+          <label for="star1a" title="DIDN'T LIKE IT"> </label>
+        </div>
+
+        <div class="wbdv-review">{{ ratedRecipe.review }}</div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="wbdv-selection" *ngIf="selection === 'Followers'">
+    <ul class="list-group">
+      <li
+        *ngFor="let follower of followers"
+        (click)="navigateToFollowerProfile(follower)"
+        class="list-group-item wbdv-follower"
+      >
+        <b>{{ follower.from.username }}</b>
+      </li>
+    </ul>
+  </div>
+
+  <div class="wbdv-selection" *ngIf="selection === 'Following'">
+    <ul class="list-group">
+      <li
+        *ngFor="let following of followings"
+        (click)="navigateToFollowingProfile(following)"
+        class="list-group-item wbdv-following"
+      >
+        <b>{{ following.to.username }}</b>
+        <button
+          class="btn btn-warning float-right"
+          (click)="unfollow(following)"
+        >
+          Unfollow
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div
+    class="wbdv-selection"
+    *ngIf="selection === 'Update Profile' || user.role === 'Admin'"
+  >
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+      *ngIf="alertSuccess == true"
+    >
+      Profile updated successfully.
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        (click)="removeAlert()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+
+      <input
+        readonly
+        [(ngModel)]="user['username']"
+        placeholder="username"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>First Name</label>
+      <input
+        [(ngModel)]="user['firstName']"
+        placeholder="first name"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Last Name</label>
+      <input
+        [(ngModel)]="user['lastName']"
+        placeholder="lastName"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        [(ngModel)]="user['email']"
+        placeholder="email"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Role</label>
+      <input
+        readonly
+        [(ngModel)]="user['role']"
+        placeholder="role"
+        class="form-control"
+      />
+    </div>
+
+    <button (click)="update(user)" class="btn btn-dark btn-block">
+      Update
+    </button>
+  </div>
+
+  <div class="wbdv-selection" *ngIf="selection === 'Your Recipes'">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="!newRecipe._id">
+          Create your own recipe
+        </h4>
+        <h4 class="modal-title" *ngIf="newRecipe._id">
+          Update your own recipe
+        </h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Recipe Name</label>
+          <input
+            [(ngModel)]="newRecipe.name"
+            placeholder="recipe name"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Ingredients (Add each ingredient on a new line)</label>
+          <textarea
+            [(ngModel)]="newRecipe.ingredients"
+            placeholder="ingredients"
+            class="form-control"
+          >
+          </textarea>
+        </div>
+
+        <div class="form-group">
+          <label
+            >ImageUrl (Provide a square image of size at least 360x360)</label
+          >
+          <input
+            [(ngModel)]="newRecipe.imageUrl"
+            placeholder="image url of recipe"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Total time required</label>
+          <input
+            [(ngModel)]="newRecipe.totalTime"
+            placeholder="total time required"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Number of Servings</label>
+          <input
+            [(ngModel)]="newRecipe.numberOfServings"
+            placeholder="number of servings"
+            class="form-control"
+          />
+        </div>
+
+        <button
+          (click)="createRecipe()"
+          *ngIf="!newRecipe._id"
+          class="btn btn-dark btn-block"
+        >
+          Add
+        </button>
+        <button
+          (click)="updateRecipe()"
+          *ngIf="newRecipe._id"
+          class="btn btn-dark btn-block"
+        >
+          Update
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('Close click')">
+          Close
+        </button>
+      </div>
+    </ng-template>
+
+    <button
+      class="btn btn-dark btn-block mb-2 mr-2"
+      (click)="openAddModal(content)"
+    >
+      Add a recipe
+    </button>
+
+    <ul class="list-group">
+      <li
+        class="list-group-item wbdv-created-recipe"
+        *ngFor="let recipe of createdRecipes"
+        (click)="navigateToRecipe(recipe)"
+      >
+        <b>{{ recipe.name }}</b>
+        <button
+          (click)="deleteRecipe(recipe)"
+          class="btn btn-danger fa fa-trash float-right"
+        ></button>
+        <button
+          (click)="openEditModal(content, recipe)"
+          class="btn btn-primary fa fa-pencil float-right"
+        ></button>
+      </li>
+    </ul>
   </div>
 </div>

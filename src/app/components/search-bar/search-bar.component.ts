@@ -4,11 +4,11 @@ import { UserServiceClient } from "../../services/user.service.client";
 import { User } from "../../models/user.model.client";
 
 @Component({
-  selector: "navbar",
-  templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"]
+  selector: "search-bar",
+  templateUrl: "./search-bar.component.html",
+  styleUrls: ["./search-bar.component.css"]
 })
-export class NavbarComponent implements OnInit {
+export class SearchBarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,

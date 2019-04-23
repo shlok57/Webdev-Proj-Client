@@ -1,0 +1,30 @@
+.wbdv-container {
+  margin-bottom: 30px;
+  padding-top: 70px;
+}
+
+.list-group.wbdv-project {
+  margin-top: 15px;
+}
+
+.wbdv-chefs-special {
+  margin-top: 15px;
+}
+
+.wbdv-pagination-button {
+  margin: 15px;
+}
+
+img {
+  margin-right: 5px;
+  width: 90px;
+  height: 60px;
+}
+
+.wbdv-group-item {
+  cursor: pointer;
+}
+
+.wbdv-pagination-component {
+  text-align: center;
+}

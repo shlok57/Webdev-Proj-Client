@@ -1,3 +1,8 @@
+.wbdv-username {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
 .list-group.wbdv-profile {
   margin-top: 20px;
 }
@@ -6,11 +11,22 @@
   margin-right: 5px;
 }
 
+.btn.btn-dark {
+  margin-right: 15px;
+}
+
+.btn.btn-success.wbdv-follow {
+  margin-left: 15px;
+}
+
+.btn.btn-warning.wbdv-unfollow {
+  margin-left: 15px;
+}
+
 .container-fluid.wbdv-profile {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 90%;
-  padding-top: 50px;
 }
 
 .wbdv-nav {
@@ -26,6 +42,21 @@
 .wbdv-selection {
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+.center {
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+}
+
+.wbdv-user-info-component {
+  text-align: center;
+  margin-top:20px;
+  width: 90%;
+  font-size: 25px;
+  padding-top: 80px;
 }
 
 .list-group-item.wbdv-liked-recipe {
@@ -80,22 +111,10 @@
   word-wrap: break-word;
 }
 
-.btn.btn-danger.fa.fa-trash {
-  margin-right: 5px;
-}
-
-.btn.btn-primary.fa.fa-pencil {
-  margin-right: 5px;
-}
-
 .row {
   width: 100%;
 }
 
 .col-11.wbdv-search-input {
   padding-right: 0px;
-}
-
-.btn.btn-dark {
-  margin-right: 15px;
 }

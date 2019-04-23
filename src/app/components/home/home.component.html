@@ -1,0 +1,44 @@
+<search-bar></search-bar>
+
+<div class="wbdv-top-container">
+  <mdb-carousel
+    [interval]="4000"
+    [isControls]="true"
+    class="carousel slide"
+    [noPause]="true"
+    [type]="'carousel-thumbnails'"
+    [animation]="'slide'"
+  >
+    <mdb-slide *ngFor="let slide of slides">
+      <div class="view">
+        <img class="d-block w-100 img-fluid" src="{{ slide.imageSrc }}" />
+        <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+      </div>
+      <div class="carousel-caption">
+        <h3 class="h3-responsive">{{ slide.mainHeading }}</h3>
+        <p>{{ slide.subHeading }}</p>
+      </div>
+    </mdb-slide>
+  </mdb-carousel>
+</div>
+
+<h2>Favourites</h2>
+
+<div class="container wbdv-bottom-container">
+  <div class="card-columns">
+    <div
+      class="card"
+      *ngFor="let dish of dishes"
+      (click)="navigate(dish.id, dish.recipeName)"
+    >
+      <img
+        class="card-img-top"
+        src="{{ getImageUrl(dish.smallImageUrls[0]) }}"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ text_truncate(dish.recipeName) }}</h5>
+        <p class="card-text">{{ dish.sourceDisplayName }}</p>
+      </div>
+    </div>
+  </div>
+</div>

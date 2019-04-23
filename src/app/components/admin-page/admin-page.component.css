@@ -1,0 +1,62 @@
+.wbdv-navbar {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 2;
+}
+
+.list-group-item.wbdv-user {
+  cursor: pointer;
+}
+
+.list-group-item.wbdv-recipe {
+  cursor: pointer;
+}
+
+.container-fluid.wbdv-profile {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 90%;
+  padding-top: 50px;
+}
+
+.wbdv-nav {
+  margin-top:20px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.wbdv-nav .active {
+  background-color: #343A40;
+}
+
+.wbdv-selection {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.wbdv-users-heading {
+  background-color: #343A40;
+  color: white;
+}
+
+.btn.btn-outline-light {
+  margin-right: 5px;
+}
+
+.list-group {
+  margin-bottom: 15px;
+}
+
+.btn.btn-danger.fa.fa-trash {
+  margin-right: 5px;
+}
+
+.btn.btn-primary.fa.fa-pencil {
+  margin-right: 5px;
+}
+
+.wbdv-pagination-component {
+  text-align: center;
+  margin-bottom: 15px;
+}

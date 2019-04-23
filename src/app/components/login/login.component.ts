@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "../../models/user.model.client";
-import { UserServiceClient } from "../../services/user.service.client";
 import { Router } from "@angular/router";
+import { UserServiceClient } from "../../services/user.service.client";
 
 @Component({
   selector: "app-login",
@@ -9,17 +8,26 @@ import { Router } from "@angular/router";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UserServiceClient, private router: Router) {}
-  user: User = new User("shlok", "foobar");
+  username;
+  password;
+  alertUsername = false;
 
-  ngOnInit() {}
-
-  login = () => {
-    // alert(":ipo");
-    this.userService.login(this.user).then(user => {
-      if (user) {
-        this.router.navigate(["../user"]);
+  login(username, password) {
+    this.userService.login(username, password).then(user => {
+      if (user.username) {
+        this.alertUsername = false;
+        this.router.navigate(["profile"]);
+      } else {
+        this.alertUsername = true;
       }
     });
-  };
+  }
+
+  removeUsernameAlert() {
+    this.alertUsername = false;
+  }
+
+  constructor(private router: Router, private userService: UserServiceClient) {}
+
+  ngOnInit() {}
 }

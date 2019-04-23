@@ -1,46 +1,52 @@
-<navbar></navbar>
-<div class="container border rounded col-sm-4 mt-5">
-  <h1>Sign In</h1>
-  <div class="form-group">
-    <label htmlFor="username" class="col-sm-12 col-form-label">
-      Username
-    </label>
-    <div class="col-sm-12">
-      <input
-        class="form-control"
-        id="username"
-        placeholder="Alice"
-        [(ngModel)]="user.Username"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <label htmlFor="password" class="col-sm-12 col-form-label">
-      Password
-    </label>
-    <div class="col-sm-12">
-      <input
-        type="password"
-        class="form-control wbdv-password-fld"
-        id="password"
-        placeholder="123qwe#$%"
-        [(ngModel)]="user.Password"
-      />
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <button class="btn btn-outline-primary btn-block" (click)="login()">
-        Sign in
+<nav class="navbar navbar-dark bg-dark justify-content-between wbdv-navbar">
+  <h3 class="navbar-brand">Login</h3>
+  <form class="form-inline">
+    <a routerLink="/register">
+      <button class="btn btn-outline-light my-2 my-sm-0"
+              type="button">
+        Register
       </button>
-      <div class="row">
-        <div class="col-6">
-          <a href="#">Forgot Password?</a>
-        </div>
-        <div class="col-6">
-          <a [routerLink]="['/register']" class="float-right">Sign up</a>
-        </div>
-      </div>
-    </div>
+    </a>
+    <a routerLink="/home">
+      <button class="btn btn-outline-light my-2 my-sm-0"
+              type="button">
+        Home
+      </button>
+    </a>
+  </form>
+</nav>
+
+<div class="container-fluid wbdv-login">
+  <div class="alert alert-danger alert-dismissible fade show"
+       role="alert"
+       *ngIf="alertUsername == true">
+    Invalid username or password. Please try again.
+    <button type="button"
+            class="close"
+            data-dismiss="alert"
+            (click)="removeUsernameAlert()"
+            aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
+
+  <div class="form-group">
+    <label>Username</label>
+    <input [(ngModel)]="username"
+           placeholder="username"
+           class="form-control"/>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <input [(ngModel)]="password"
+           placeholder="password"
+           type="password"
+           class="form-control"/>
+  </div>
+
+  <button (click)="login(username, password)"
+          class="btn btn-primary btn-block">
+    Login
+  </button>
 </div>

@@ -1,0 +1,195 @@
+.container {
+  margin-bottom: 1.25em;
+  margin-top: 1.25em;
+}
+
+.wbdv-recipe {
+  margin-bottom: 1.25em;
+  margin-top: 1.25em;
+}
+
+.wbdv-recipe-summary {
+  color: #a3a3a3;
+  text-align: center;
+}
+
+.wbdv-recipe-summary-item {
+  position: relative;
+  cursor: default;
+  display: inline-block;
+  width: 33%;
+  font-size: 1.125em;
+}
+
+.wbdv-recipe-summary-item .value {
+  font-family: Helvetica Neue, Roboto Thin, Roboto Light, Roboto,
+    HelveticaNeue Light, Helvetica Neue Light, Segoe UI, sans-serif;
+  font-weight: 100;
+  font-size: 2.25em;
+  color: #e16120;
+  margin: 0.1em;
+}
+
+.wbdv-ingredients-heading {
+  background-color: #343a40;
+  color: white;
+}
+
+.wbdv-image-wrap {
+  display: inline-block;
+  position: relative;
+}
+
+.wbdv-like-button {
+  border-radius: 35px;
+  background-color: #f3f3f3;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  z-index: 1;
+}
+
+.wbdv-like-icon {
+  color: #343a40;
+  font-size: 25px;
+}
+
+.wbdv-liked-button {
+  border-radius: 35px;
+  background-color: #343a40;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  z-index: 1;
+}
+
+.wbdv-liked-icon {
+  color: #e16120;
+  font-size: 25px;
+}
+
+.wbdv-group-item {
+  cursor: pointer;
+}
+
+.wbdv-rating {
+  border: none;
+  float: left;
+}
+
+.wbdv-rating > input {
+  display: none;
+}
+
+.wbdv-rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.wbdv-rating > label {
+  color: #ddd;
+  float: right;
+}
+
+.wbdv-rating > input:checked ~ label, /* show gold star when clicked */
+.wbdv-rating:not(:checked) > label:hover, /* hover current star */
+.wbdv-rating:not(:checked) > label:hover ~ label {
+  color: #e16120;
+}
+
+/* hover previous stars in list */
+
+.wbdv-rating > input:checked + label:hover, /* hover current star when changing rating */
+.wbdv-rating > input:checked ~ label:hover,
+.wbdv-rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.wbdv-rating > input:checked ~ label:hover ~ label {
+  color: #ffa577;
+}
+
+.wbdv-rated {
+  border: none;
+  float: right;
+}
+
+.wbdv-rated .highlight ~ label {
+  color: #e16120;
+}
+
+.wbdv-rated > input {
+  display: none;
+}
+
+.wbdv-rated > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.wbdv-rated > label {
+  color: #ddd;
+  float: right;
+}
+
+.wbdv-linebreaks {
+  white-space: pre;
+}
+
+.wbdv-review {
+  white-space: normal;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+img {
+  width: 360px;
+  height: 360px;
+}
+
+.recipe-details.has-image {
+  padding-top: 80px;
+}
+
+.recipe-details {
+  background: #363636;
+  background-position: 50% 50%;
+  background-size: cover;
+  position: relative;
+  transition: all 0.6s ease;
+}
+
+.recipe-details:before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  background-image: initial;
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 0.6s ease;
+}
+.col-lg-5.col-sm-12.text-center {
+  margin-bottom: 20px;
+}
+.col-lg-7.col-sm-12.text-center {
+  color: #f3f3f3;
+}

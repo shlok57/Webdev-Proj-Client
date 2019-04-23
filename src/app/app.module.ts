@@ -3,28 +3,57 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
-import { ProfileComponent } from "./components/profile/profile.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { NavbarComponent } from "./components/navbar/navbar.component";
-import { RecipeComponent } from "./components/recipe/recipe.component";
-import { RecipeService } from "./services/recipe.service";
-import { CommentComponent } from "./components/comment/comment.component";
-import { CommentService } from "./services/comment.service";
+import { RecipeServiceClient } from "./services/recipe.service.client";
+import { HomeComponent } from "./components/home/home.component";
+import { SearchComponent } from "./components/search/search.component";
+import { ProfileComponent } from "./components/profile/profile.component";
+import { UserProfileComponent } from "./components/user-profile/user-profile.component";
+import { AdminPageComponent } from "./components/admin-page/admin-page.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { SearchBarComponent } from "./components/search-bar/search-bar.component";
+import { CarouselModule, WavesModule } from "angular-bootstrap-md";
+import { FollowServiceClient } from "./services/follow.service.client";
+import { RatingServiceClient } from "./services/rating.service.client";
+import { LikeServiceClient } from "./services/like.service.client";
+import { UserServiceClient } from "./services/user.service.client";
+import { YummlyServiceClient } from "./services/yummly.service.client";
+import { RecipeDetailsComponent } from "./components/recipe-details/recipe-details.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     NavbarComponent,
-    RecipeComponent,
-    CommentComponent
+    HomeComponent,
+    SearchComponent,
+    ProfileComponent,
+    UserProfileComponent,
+    AdminPageComponent,
+    SearchBarComponent,
+    RecipeDetailsComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpModule, FormsModule],
-  providers: [RecipeService, CommentService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpModule,
+    FormsModule,
+    NgbModule.forRoot(),
+    CarouselModule,
+    WavesModule
+  ],
+  providers: [
+    YummlyServiceClient,
+    RecipeServiceClient,
+    UserServiceClient,
+    LikeServiceClient,
+    RatingServiceClient,
+    FollowServiceClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

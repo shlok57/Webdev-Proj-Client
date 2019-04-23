@@ -1,0 +1,54 @@
+<search-bar></search-bar>
+
+<div class="container wbdv-container">
+  <div>
+    <ul class="list-group wbdv-project">
+      <li
+        *ngFor="let result of yummlyResults"
+        (click)="navigateYum(result.id)"
+        class="list-group-item wbdv-group-item"
+      >
+        <img
+          alt=" "
+          *ngIf="result.smallImageUrls"
+          src="{{ result.smallImageUrls[0] }}"
+        />
+        {{ result["recipeName"] }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="wbdv-pagination-component" *ngIf="yummlyResults.length > 0">
+    <button
+      type="button"
+      (click)="searchRecipes(searchText, currentPage - 1)"
+      *ngIf="currentPage !== firstPage"
+      class="btn btn-primary wbdv-pagination-button"
+    >
+      Previous
+    </button>
+    Page {{ currentPage }} of {{ lastPage }}
+    <button
+      type="button"
+      (click)="searchRecipes(searchText, currentPage + 1)"
+      *ngIf="currentPage !== lastPage"
+      class="btn btn-primary wbdv-pagination-button"
+    >
+      Next
+    </button>
+  </div>
+
+  <div class="wbdv-chefs-special">
+    <h2>Chef's specials ({{ foodfoodResults.length }})</h2>
+    <ul class="list-group wbdv-project">
+      <li
+        *ngFor="let result of foodfoodResults"
+        (click)="navigateFoodFood(result._id)"
+        class="list-group-item wbdv-group-item"
+      >
+        <img alt=" " *ngIf="result.imageUrl" src="{{ result.imageUrl }}" />
+        {{ result["name"] }}
+      </li>
+    </ul>
+  </div>
+</div>

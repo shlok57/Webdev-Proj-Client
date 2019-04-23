@@ -1,15 +1,16 @@
 export class User {
   _id: Number;
-  Username: String;
-  Date_Created: Date;
-  Password: String;
-  First_Name: String;
-  Last_Name: String;
-  Role: String;
-  Phone: String;
-  Email: String;
+  username: String;
+  dateCreated: Date;
+  password: String;
+  firstName: String;
+  lastName: String;
+  role: String;
+  phone: String;
+  email: String;
+  aboutMe: String;
 
   constructor(username = "", password = "") {
-    (this.Username = username), (this.Password = password);
+    (this.username = username), (this.password = password);
   }
 }

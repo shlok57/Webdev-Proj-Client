@@ -1,0 +1,263 @@
+<search-bar></search-bar>
+
+<div
+  class="recipe-details has-image"
+  [ngStyle]="{ 'background-image': getImageUrl() }"
+>
+  <div class="container wbdv-recipe-details-top">
+    <div class="row">
+      <div class="col-lg-5 col-sm-12 text-center">
+        <div class="wbdv-image-wrap">
+          <img
+            alt="Image not available"
+            *ngIf="recipeDetails['imageUrl']"
+            src="{{ recipeDetails['imageUrl'] }}"
+          />
+          <button
+            class="btn wbdv-like-button"
+            *ngIf="
+              !currentUser.username ||
+              (!isRecipeLiked && currentUser.role !== 'Admin')
+            "
+            (click)="like()"
+          >
+            <i class="fa fa-heart-o wbdv-like-icon"></i>
+          </button>
+          <button
+            class="btn wbdv-liked-button"
+            *ngIf="isRecipeLiked && currentUser.role !== 'Admin'"
+            (click)="unlike()"
+          >
+            <i class="fa fa-heart wbdv-liked-icon"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-7 col-sm-12  text-center">
+        <h1>{{ recipeDetails["name"] }}</h1>
+        <br />
+        <h3 *ngIf="likedUsers.length === 1">{{ likedUsers.length }} Like</h3>
+        <h3 *ngIf="likedUsers.length > 1">{{ likedUsers.length }} Likes</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="wbdv-recipe-summary">
+    <div class="wbdv-recipe-summary-item">
+      <span class="value">{{ ingredientsCount }}</span>
+      <label>Ingredients</label>
+    </div>
+    <div class="wbdv-recipe-summary-item nutrition">
+      <span class="value" *ngIf="recipeDetails['numberOfServings']">
+        {{ recipeDetails["numberOfServings"] }}
+      </span>
+      <span class="value" *ngIf="!recipeDetails['numberOfServings']">
+        ---
+      </span>
+      <label>Servings</label>
+    </div>
+    <div class="wbdv-recipe-summary-item">
+      <span class="value">{{ totalTime }}</span>
+      <span class="value" *ngIf="!recipeDetails['totalTime']">
+        ---
+      </span>
+      <label *ngIf="!recipeDetails['totalTime']">mins</label>
+      <label>{{ totalTimeUnit }}</label>
+    </div>
+  </div>
+
+  <ul class="list-group wbdv-recipe">
+    <li class="list-group-item wbdv-ingredients-heading">Ingredients</li>
+    <li
+      *ngFor="let ingredient of recipeDetails['ingredients']"
+      class="list-group-item"
+    >
+      {{ ingredient }}
+    </li>
+  </ul>
+
+  <span *ngIf="currentUser.role !== 'Admin'">
+    <h4>How much did you like {{ recipeDetails["name"] }}?</h4>
+
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+      *ngIf="alertReview == true"
+    >
+      Rating submitted successfully
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        (click)="removeReviewAlert()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="wbdv-rating">
+      <input
+        type="radio"
+        id="star5"
+        name="rating"
+        [checked]="newRating === 5"
+        (click)="changeRating(5)"
+      />
+      <label class="full" for="star5" title="OUTSTANDING"> </label>
+      <input
+        type="radio"
+        id="star4"
+        name="rating"
+        [checked]="newRating === 4"
+        (click)="changeRating(4)"
+      />
+      <label class="full" for="star4" title="REALLY GOOD"> </label>
+      <input
+        type="radio"
+        id="star3"
+        name="rating"
+        [checked]="newRating === 3"
+        (click)="changeRating(3)"
+      />
+      <label class="full" for="star3" title="JUST GOOD"> </label>
+      <input
+        type="radio"
+        id="star2"
+        name="rating"
+        [checked]="newRating === 2"
+        (click)="changeRating(2)"
+      />
+      <label class="full" for="star2" title="SO SO"> </label>
+      <input
+        type="radio"
+        id="star1"
+        name="rating"
+        [checked]="newRating === 1"
+        (click)="changeRating(1)"
+      />
+      <label class="full" for="star1" title="DIDN'T LIKE IT"> </label>
+    </div>
+    <br /><br />
+
+    <div
+      class="form-group"
+      *ngIf="currentUser.role === 'Critic' && newRating !== 0"
+    >
+      <textarea
+        [(ngModel)]="newReview"
+        rows="4"
+        placeholder="Write something about {{ recipeDetails['name'] }}"
+        class="form-control"
+      >
+      </textarea>
+    </div>
+
+    <div *ngIf="newRating !== 0 && myRatingId === ''">
+      <button (click)="rate()" class="btn btn-dark">
+        Submit
+      </button>
+    </div>
+
+    <div *ngIf="newRating !== 0 && myRatingId !== ''">
+      <button (click)="updateRating()" class="btn btn-dark">
+        Update
+      </button>
+    </div>
+  </span>
+
+  <hr />
+
+  <h4>Critic's Reviews ({{ reviewedUsers.length }})</h4>
+
+  <ul class="list-group wbdv-recipe">
+    <li
+      *ngFor="let reviewedUser of reviewedUsers"
+      (click)="goToUserProfile(reviewedUser.user.username)"
+      class="list-group-item wbdv-group-item wbdv-linebreaks"
+    >
+      <b>{{ reviewedUser.user.username }}</b>
+
+      <div class="wbdv-rated">
+        <input
+          type="radio"
+          id="star5b"
+          [ngClass]="{ highlight: reviewedUser.rating === 5 }"
+        />
+        <label for="star5b" title="OUTSTANDING"> </label>
+        <input
+          type="radio"
+          id="star4b"
+          [ngClass]="{ highlight: reviewedUser.rating === 4 }"
+        />
+        <label for="star4b" title="REALLY GOOD"> </label>
+        <input
+          type="radio"
+          id="star3b"
+          [ngClass]="{ highlight: reviewedUser.rating === 3 }"
+        />
+        <label for="star3b" title="JUST GOOD"> </label>
+        <input
+          type="radio"
+          id="star2b"
+          [ngClass]="{ highlight: reviewedUser.rating === 2 }"
+        />
+        <label for="star2b" title="SO SO"> </label>
+        <input
+          type="radio"
+          id="star1b"
+          [ngClass]="{ highlight: reviewedUser.rating === 1 }"
+        />
+        <label for="star1b" title="DIDN'T LIKE IT"> </label>
+      </div>
+
+      <div class="wbdv-review">{{ reviewedUser.review }}</div>
+    </li>
+  </ul>
+
+  <h4>Ratings ({{ ratedUsers.length }})</h4>
+
+  <ul class="list-group wbdv-recipe">
+    <li
+      *ngFor="let ratedUser of ratedUsers"
+      (click)="goToUserProfile(ratedUser.user.username)"
+      class="list-group-item wbdv-group-item"
+    >
+      <b>{{ ratedUser.user.username }}</b>
+
+      <div class="wbdv-rated">
+        <input
+          type="radio"
+          id="star5a"
+          [ngClass]="{ highlight: ratedUser.rating === 5 }"
+        />
+        <label for="star5a" title="OUTSTANDING"> </label>
+        <input
+          type="radio"
+          id="star4a"
+          [ngClass]="{ highlight: ratedUser.rating === 4 }"
+        />
+        <label for="star4a" title="REALLY GOOD"> </label>
+        <input
+          type="radio"
+          id="star3a"
+          [ngClass]="{ highlight: ratedUser.rating === 3 }"
+        />
+        <label for="star3a" title="JUST GOOD"> </label>
+        <input
+          type="radio"
+          id="star2a"
+          [ngClass]="{ highlight: ratedUser.rating === 2 }"
+        />
+        <label for="star2a" title="SO SO"> </label>
+        <input
+          type="radio"
+          id="star1a"
+          [ngClass]="{ highlight: ratedUser.rating === 1 }"
+        />
+        <label for="star1a" title="DIDN'T LIKE IT"> </label>
+      </div>
+    </li>
+  </ul>
+</div>
