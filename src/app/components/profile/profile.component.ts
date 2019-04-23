@@ -201,7 +201,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.profile().then(user => {
       if (user["username"]) {
-        if (user.role === "Admin") {
+        if (user.role === "ADMIN") {
           this.selection = "Manage Users";
         }
         this.user = user;

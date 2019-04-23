@@ -9,6 +9,8 @@ export class LikeServiceClient {
   CURRENT_USER_LIKE_URL = this.VARIABLE_URL + "/api/user/likedRecipe";
   USER_LIKE_URL = this.VARIABLE_URL + "/api/user/UID/likedRecipe";
 
+
+
   like(recipeId) {
     return fetch(this.RECIPE_URL + "/" + recipeId + "/like", {
       method: "post",
@@ -39,5 +41,10 @@ export class LikeServiceClient {
     return fetch(this.RECIPE_URL + "/" + recipeId + "/likedUser").then(
       response => response.json()
     );
+  }
+
+  getTotalLikesByRecipes = () => {
+    return fetch(this.REMOTE_URL + "/api/topLike")
+      .then(response => response.json());
   }
 }
