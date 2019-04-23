@@ -94,7 +94,7 @@
   <button
     class="btn btn-success wbdv-follow"
     *ngIf="
-      !currentUser.username || (!isUserFollowed && currentUser.role !== 'Admin')
+      !currentUser.username || (!isUserFollowed && currentUser.role !== 'ADMIN')
     "
     (click)="follow()"
   >

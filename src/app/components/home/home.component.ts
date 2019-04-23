@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { YummlyServiceClient } from "src/app/services/yummly.service.client";
-import {LikeServiceClient} from '../../services/like.service.client';
-import {RecipeServiceClient} from '../../services/recipe.service.client';
-import {Recipe} from '../../models/recipe.model.client';
+import { LikeServiceClient } from "../../services/like.service.client";
+import { RecipeServiceClient } from "../../services/recipe.service.client";
+import { Recipe } from "../../models/recipe.model.client";
 
 @Component({
   selector: "app-home",
@@ -34,7 +34,13 @@ export class HomeComponent implements OnInit {
     this.router.navigate(["search/" + recipeName + "/" + yummlyId]);
   }
 
-  navigateToRecipe(likedRecipe) {
+  navigateToRecipe(recipe) {
+    var likedRecipe;
+    if (recipe.recipe == undefined) {
+      likedRecipe.recipe = recipe;
+    } else {
+      likedRecipe = recipe;
+    }
     if (likedRecipe.recipe.yummlyId) {
       this.router.navigate([
         "search/" + likedRecipe.recipe.name + "/" + likedRecipe.recipe.yummlyId
@@ -42,9 +48,9 @@ export class HomeComponent implements OnInit {
     } else {
       this.router.navigate([
         "search/" +
-        likedRecipe.recipe.name +
-        "/foodfood-" +
-        likedRecipe.recipe._id
+          likedRecipe.recipe.name +
+          "/foodfood-" +
+          likedRecipe.recipe._id
       ]);
     }
   }
@@ -55,25 +61,26 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.yummlyService.findHomePageRecipes().then(res => {
       this.dishes = res.matches;
-      console.log(this.dishes);
     });
     this.likeService
       .findLikedRecipesForCurrentUser()
       .then(recipes => (this.likedRecipes = recipes))
-      .then(() => this.likedRecipes = this.likedRecipes.slice(0, 5));
+      .then(() => (this.likedRecipes = this.likedRecipes.slice(0, 5)));
 
-    this.recipeService.findAllRecipes().then(recipes => this.topRatedRecipes = recipes)
-      .then(() =>  {
-        this.topRatedRecipes = this.topRatedRecipes.slice(0,5);
+    this.recipeService
+      .findAllRecipes()
+      .then(recipes => (this.topRatedRecipes = recipes))
+      .then(() => {
+        this.topRatedRecipes = this.topRatedRecipes.slice(0, 5);
         this.topRatedRecipes = this.topRatedRecipes.sort((a, b) => {
           try {
             var aNo: any = a.numberOfServings;
             var bNo: any = b.numberOfServings;
             return aNo - bNo;
-          }catch(e) {
+          } catch (e) {
             return 0;
           }
-      });
+        });
       });
   }
 }

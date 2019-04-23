@@ -2,32 +2,34 @@
 
 <div class="wbdv-top-container">
   <div class="row">
-  <div class="col-6" *ngIf="likedRecipes !== undefined">
-    <h5 class="h5">Few Recipes you have liked</h5>
-    <ul class="list-group">
-      <li
-        *ngFor="let likedRecipe of likedRecipes"
-        (click)="navigateToRecipe(likedRecipe)"
-        class="list-group-item wbdv-liked-recipe">
-        <b>{{ likedRecipe.recipe.name }}</b>
-      </li>
-    </ul>
-  </div>
-  <div class="col-6" *ngIf="topRatedRecipes !== undefined">
-    <h5 class="h5">Recipes With Least Ingredients</h5>
-    <ul class="list-group">
-      <li
-        *ngFor="let ratedRecipe of topRatedRecipes"
-        (click)="navigateToRecipe(ratedRecipe)"
-        class="list-group-item wbdv-liked-recipe">
-        <b>{{ ratedRecipe.name }}</b>
-      </li>
-    </ul>
-  </div>
+    <div class="col-6" *ngIf="likedRecipes !== undefined">
+      <h5 class="h5">Your Favourites</h5>
+      <ul class="list-group">
+        <li
+          *ngFor="let likedRecipe of likedRecipes"
+          (click)="navigateToRecipe(likedRecipe)"
+          class="list-group-item wbdv-liked-recipe"
+        >
+          <b>{{ likedRecipe.recipe.name }}</b>
+        </li>
+      </ul>
+    </div>
+    <div class="col-6" *ngIf="topRatedRecipes !== undefined">
+      <h5 class="h5">Recipes With Least Ingredients</h5>
+      <ul class="list-group">
+        <li
+          *ngFor="let ratedRecipe of topRatedRecipes"
+          (click)="navigateToRecipe(ratedRecipe)"
+          class="list-group-item wbdv-liked-recipe"
+        >
+          <b>{{ ratedRecipe.name }}</b>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
-<h2>Favourites</h2>
+<h2>Recently Added Recipes</h2>
 
 <div class="container wbdv-bottom-container">
   <div class="card-columns">

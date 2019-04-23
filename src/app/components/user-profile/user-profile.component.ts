@@ -83,7 +83,7 @@ export class UserProfileComponent implements OnInit {
       });
     this.userService.profileOfUser(username).then(user => {
       console.log(user);
-      if (user.role === "Admin") {
+      if (user.role === "ADMIN") {
         this.router.navigate(["profile"]);
       }
       this.user = user;

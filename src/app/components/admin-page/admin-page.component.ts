@@ -171,10 +171,9 @@ export class AdminPageComponent implements OnInit {
 
   loadAllUsers() {
     this.userService.findAllUsers().then(users => {
-      const allUsers = users.filter(user => user.role !== "Admin");
-      this.chefs = allUsers.filter(user => user.role === "Chef");
-      this.critics = allUsers.filter(user => user.role === "Critic");
-      this.customers = allUsers.filter(user => user.role === "Customer");
+      const allUsers = users.filter(user => user.role !== "ADMIN");
+      this.chefs = allUsers.filter(user => user.role === "CHEF");
+      this.customers = allUsers.filter(user => user.role === "FOODIE");
     });
   }
 
@@ -195,7 +194,7 @@ export class AdminPageComponent implements OnInit {
   ngOnInit() {
     this.userService.profile().then(user => {
       if (user["role"]) {
-        if (user["role"] === "Admin") {
+        if (user["role"] === "ADMIN") {
           this.currentUser = user;
         } else {
           this.router.navigate(["profile"]);
