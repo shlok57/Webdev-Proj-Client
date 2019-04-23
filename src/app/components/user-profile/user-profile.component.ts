@@ -26,7 +26,6 @@ export class UserProfileComponent implements OnInit {
     private recipeService: RecipeServiceClient,
     private router: Router
   ) {
-    alert("zxc");
     this.route.params.subscribe(params => this.loadUser(params["username"]));
   }
 

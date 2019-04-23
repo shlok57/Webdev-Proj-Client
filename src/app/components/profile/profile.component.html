@@ -60,21 +60,60 @@
     </div>
   </div>
 </nav>
+<!-- 
+<div class="wbdv-user-info-component" *ngIf="notSelfProfile">
+  <img
+    src="https://cdn3.iconfinder.com/data/icons/vacation-4/32/vacation_29-512.png"
+    *ngIf="user.role === 'FOODIE'"
+    class="center"
+  />
+  <img
+    src="https://cdn.iconscout.com/public/images/icon/premium/png-512/hat-chef-34a84148ee18041e-512x512.png"
+    *ngIf="user.role === 'CHEF'"
+    class="center"
+  />
+  {{ username }}
+  <button
+    class="btn btn-success wbdv-follow"
+    *ngIf="!user.username || (!isUserFollowed && user.role !== 'Admin')"
+    (click)="follow()"
+  >
+    Follow
+  </button>
+  <button
+    class="btn btn-warning wbdv-unfollow"
+    *ngIf="isUserFollowed"
+    (click)="unfollow()"
+  >
+    UnFollow
+  </button>
+</div> -->
 
 <div class="container-fluid wbdv-profile">
-<div class="accordion" id="accordionExample">
-  <div class="card">
-    <button class="btn btn-link" type="button" data-toggle="collapse"
-            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-      <div class="card-header" id="headingOne">
-        <h5 class="mb-0">
-            Profile
-        </h5>
-      </div>
-    </button>
+  <div class="accordion" id="accordionExample">
+    <div class="card" *ngIf="!notSelfProfile">
+      <button
+        class="btn btn-link"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapseOne"
+        aria-expanded="true"
+        aria-controls="collapseOne"
+      >
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            Update Profile
+          </h5>
+        </div>
+      </button>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body wbdv-selection">
+      <div
+        id="collapseOne"
+        class="collapse show"
+        aria-labelledby="headingOne"
+        data-parent="#accordionExample"
+      >
+        <div class="card-body wbdv-selection">
           <div
             class="alert alert-success alert-dismissible fade show"
             role="alert"
@@ -144,282 +183,346 @@
             Update
           </button>
         </div>
+      </div>
     </div>
-  </div>
 
-
-  <div class="card" *ngIf="user.role != 'ADMIN'">
-    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-          Liked Recipes
-
-      </h5>
-    </div>
-    </button>
-
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-      <div class="card-body">
-        <ul class="list-group">
-          <li
-            *ngFor="let likedRecipe of likedRecipes"
-            (click)="navigateToRecipe(likedRecipe)"
-            class="list-group-item wbdv-liked-recipe">
-            <b>{{ likedRecipe.recipe.name }}</b>
-            <button
-              class="btn btn-warning float-right"
-              (click)="unlike(likedRecipe)">
-              Unlike
-            </button>
-          </li>
-        </ul>
+    <div class="card" *ngIf="user.role != 'ADMIN'">
+      <button
+        class="btn btn-link collapsed"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapseTwo"
+        aria-expanded="false"
+        aria-controls="collapseTwo"
+      >
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            Liked Recipes
+          </h5>
         </div>
-    </div>
-
-    <div class="card" *ngIf="user.role != 'ADMIN'">
-      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-
-      <div class="card-header" id="headingThree">
-        <h5 class="mb-0">
-           Rated Recipes
-
-        </h5>
-      </div>
       </button>
 
-      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div
+        id="collapseTwo"
+        class="collapse"
+        aria-labelledby="headingTwo"
+        data-parent="#accordionExample"
+      >
         <div class="card-body">
           <ul class="list-group">
             <li
-              *ngFor="let ratedRecipe of ratedRecipes"
-              (click)="navigateToRecipe(ratedRecipe)"
-              class="list-group-item wbdv-rated-recipe">
-              <b>{{ ratedRecipe.recipe.name }}</b>
-
-              <div class="wbdv-rated">
-                <input
-                  type="radio"
-                  id="star5a"
-                  [ngClass]="{ highlight: ratedRecipe.rating === 5 }"/>
-                <label for="star5a" title="OUTSTANDING"> </label>
-                <input
-                  type="radio"
-                  id="star4a"
-                  [ngClass]="{ highlight: ratedRecipe.rating === 4 }"/>
-                <label for="star4a" title="REALLY GOOD"> </label>
-                <input
-                  type="radio"
-                  id="star3a"
-                  [ngClass]="{ highlight: ratedRecipe.rating === 3 }" />
-                <label for="star3a" title="JUST GOOD"> </label>
-                <input
-                  type="radio"
-                  id="star2a"
-                  [ngClass]="{ highlight: ratedRecipe.rating === 2 }"/>
-                <label for="star2a" title="SO SO"> </label>
-                <input
-                  type="radio"
-                  id="star1a"
-                  [ngClass]="{ highlight: ratedRecipe.rating === 1 }"/>
-                <label for="star1a" title="DIDN'T LIKE IT"> </label>
-              </div>
-
-              <div class="wbdv-review">{{ ratedRecipe.review }}</div>
-            </li>
-          </ul>
-          </div>
-      </div>
-    </div>
-
-    <div class="card" *ngIf="user.role != 'ADMIN'">
-      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-
-      <div class="card-header" id="headingFour">
-        <h5 class="mb-0">
-           Followers
-
-        </h5>
-      </div>
-      </button>
-
-      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-        <div class="card-body">
-          <ul class="list-group">
-            <li
-              *ngFor="let follower of followers"
-              (click)="navigateToFollowerProfile(follower)"
-              class="list-group-item wbdv-follower"
+              *ngFor="let likedRecipe of likedRecipes"
+              (click)="navigateToRecipe(likedRecipe)"
+              class="list-group-item wbdv-liked-recipe"
             >
-              <b>{{ follower.from.username }}</b>
-            </li>
-          </ul>
-          </div>
-      </div>
-    </div>
-
-    <div class="card" *ngIf="user.role != 'ADMIN'">
-      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-
-      <div class="card-header" id="headingFive">
-        <h5 class="mb-0">
-           Following
-
-        </h5>
-      </div>
-      </button>
-
-      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-        <div class="card-body">
-          <ul class="list-group">
-            <li
-              *ngFor="let following of followings"
-              (click)="navigateToFollowingProfile(following)"
-              class="list-group-item wbdv-following"
-            >
-              <b>{{ following.to.username }}</b>
+              <b>{{ likedRecipe.recipe.name }}</b>
               <button
                 class="btn btn-warning float-right"
-                (click)="unfollow(following)"
+                (click)="unlike(likedRecipe)"
+                *ngIf="!notSelfProfile"
               >
-                Unfollow
+                Unlike
               </button>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <div class="card" *ngIf="user.role != 'ADMIN'">
+        <button
+          class="btn btn-link collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseThree"
+          aria-expanded="false"
+          aria-controls="collapseThree"
+        >
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              Rated Recipes
+            </h5>
           </div>
+        </button>
+
+        <div
+          id="collapseThree"
+          class="collapse"
+          aria-labelledby="headingThree"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <ul class="list-group">
+              <li
+                *ngFor="let ratedRecipe of ratedRecipes"
+                (click)="navigateToRecipe(ratedRecipe)"
+                class="list-group-item wbdv-rated-recipe"
+              >
+                <b>{{ ratedRecipe.recipe.name }}</b>
+
+                <div class="wbdv-rated">
+                  <input
+                    type="radio"
+                    id="star5a"
+                    [ngClass]="{ highlight: ratedRecipe.rating === 5 }"
+                  />
+                  <label for="star5a" title="OUTSTANDING"> </label>
+                  <input
+                    type="radio"
+                    id="star4a"
+                    [ngClass]="{ highlight: ratedRecipe.rating === 4 }"
+                  />
+                  <label for="star4a" title="REALLY GOOD"> </label>
+                  <input
+                    type="radio"
+                    id="star3a"
+                    [ngClass]="{ highlight: ratedRecipe.rating === 3 }"
+                  />
+                  <label for="star3a" title="JUST GOOD"> </label>
+                  <input
+                    type="radio"
+                    id="star2a"
+                    [ngClass]="{ highlight: ratedRecipe.rating === 2 }"
+                  />
+                  <label for="star2a" title="SO SO"> </label>
+                  <input
+                    type="radio"
+                    id="star1a"
+                    [ngClass]="{ highlight: ratedRecipe.rating === 1 }"
+                  />
+                  <label for="star1a" title="DIDN'T LIKE IT"> </label>
+                </div>
+
+                <div class="wbdv-review">{{ ratedRecipe.review }}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="card" *ngIf="user.role == 'CHEF'">
-      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+      <div class="card" *ngIf="user.role != 'ADMIN'">
+        <button
+          class="btn btn-link collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseFour"
+          aria-expanded="false"
+          aria-controls="collapseFour"
+        >
+          <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+              Followers
+            </h5>
+          </div>
+        </button>
 
-      <div class="card-header" id="headingSix">
-        <h5 class="mb-0">
-           Your Recipes
-
-        </h5>
+        <div
+          id="collapseFour"
+          class="collapse"
+          aria-labelledby="headingFour"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <ul class="list-group">
+              <li
+                *ngFor="let follower of followers"
+                (click)="navigateToFollowerProfile(follower)"
+                class="list-group-item wbdv-follower"
+              >
+                <b>{{ follower.from.username }}</b>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      </button>
 
-      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-        <div class="card-body">
-          <ng-template #content let-c="close" let-d="dismiss">
-            <div class="modal-header">
-              <h4 class="modal-title" *ngIf="!newRecipe._id">
-                Create your own recipe
-              </h4>
-              <h4 class="modal-title" *ngIf="newRecipe._id">
-                Update your own recipe
-              </h4>
-              <button
-                type="button"
-                class="close"
-                aria-label="Close"
-                (click)="d('Cross click')"
+      <div class="card" *ngIf="user.role != 'ADMIN'">
+        <button
+          class="btn btn-link collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseFive"
+          aria-expanded="false"
+          aria-controls="collapseFive"
+        >
+          <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+              Following
+            </h5>
+          </div>
+        </button>
+
+        <div
+          id="collapseFive"
+          class="collapse"
+          aria-labelledby="headingFive"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <ul class="list-group">
+              <li
+                *ngFor="let following of followings"
+                (click)="navigateToFollowingProfile(following)"
+                class="list-group-item wbdv-following"
               >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <div class="modal-body">
-              <div class="form-group">
-                <label>Recipe Name</label>
-                <input
-                  [(ngModel)]="newRecipe.name"
-                  placeholder="recipe name"
-                  class="form-control"
-                />
-              </div>
-
-              <div class="form-group">
-                <label>Ingredients (Add each ingredient on a new line)</label>
-                <textarea
-                  [(ngModel)]="newRecipe.ingredients"
-                  placeholder="ingredients"
-                  class="form-control"
+                <b>{{ following.to.username }}</b>
+                <button
+                  class="btn btn-warning float-right"
+                  (click)="unfollow(following)"
+                  *ngIf="!notSelfProfile"
                 >
-          </textarea>
-              </div>
+                  Unfollow
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-              <div class="form-group">
-                <label
-                >ImageUrl (Provide a square image of size at least 360x360)</label
+      <div class="card" *ngIf="user.role == 'CHEF' && !notSelfProfile">
+        <button
+          class="btn btn-link collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseSix"
+          aria-expanded="false"
+          aria-controls="collapseSix"
+        >
+          <div class="card-header" id="headingSix">
+            <h5 class="mb-0">
+              Your Recipes
+            </h5>
+          </div>
+        </button>
+
+        <div
+          id="collapseSix"
+          class="collapse"
+          aria-labelledby="headingSix"
+          data-parent="#accordionExample"
+        >
+          <div class="card-body">
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title" *ngIf="!newRecipe._id">
+                  Create your own recipe
+                </h4>
+                <h4 class="modal-title" *ngIf="newRecipe._id">
+                  Update your own recipe
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="d('Cross click')"
                 >
-                <input
-                  [(ngModel)]="newRecipe.imageUrl"
-                  placeholder="image url of recipe"
-                  class="form-control"
-                />
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
 
-              <div class="form-group">
-                <label>Total time required</label>
-                <input
-                  [(ngModel)]="newRecipe.totalTime"
-                  placeholder="total time required"
-                  class="form-control"
-                />
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Recipe Name</label>
+                  <input
+                    [(ngModel)]="newRecipe.name"
+                    placeholder="recipe name"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label>Ingredients (Add each ingredient on a new line)</label>
+                  <textarea
+                    [(ngModel)]="newRecipe.ingredients"
+                    placeholder="ingredients"
+                    class="form-control"
+                  >
+                  </textarea>
+                </div>
+
+                <div class="form-group">
+                  <label
+                    >ImageUrl (Provide a square image of size at least
+                    360x360)</label
+                  >
+                  <input
+                    [(ngModel)]="newRecipe.imageUrl"
+                    placeholder="image url of recipe"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label>Total time required</label>
+                  <input
+                    [(ngModel)]="newRecipe.totalTime"
+                    placeholder="total time required"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label>Number of Servings</label>
+                  <input
+                    [(ngModel)]="newRecipe.numberOfServings"
+                    placeholder="number of servings"
+                    class="form-control"
+                  />
+                </div>
+
+                <button
+                  (click)="createRecipe()"
+                  *ngIf="!newRecipe._id"
+                  class="btn btn-dark btn-block"
+                >
+                  Add
+                </button>
+                <button
+                  (click)="updateRecipe()"
+                  *ngIf="newRecipe._id"
+                  class="btn btn-dark btn-block"
+                >
+                  Update
+                </button>
               </div>
 
-              <div class="form-group">
-                <label>Number of Servings</label>
-                <input
-                  [(ngModel)]="newRecipe.numberOfServings"
-                  placeholder="number of servings"
-                  class="form-control"
-                />
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-light"
+                  (click)="c('Close click')"
+                >
+                  Close
+                </button>
               </div>
+            </ng-template>
 
-              <button
-                (click)="createRecipe()"
-                *ngIf="!newRecipe._id"
-                class="btn btn-dark btn-block"
-              >
-                Add
-              </button>
-              <button
-                (click)="updateRecipe()"
-                *ngIf="newRecipe._id"
-                class="btn btn-dark btn-block"
-              >
-                Update
-              </button>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" (click)="c('Close click')">
-                Close
-              </button>
-            </div>
-          </ng-template>
-
-          <button
-            class="btn btn-dark btn-block mb-2 mr-2"
-            (click)="openAddModal(content)"
-          >
-            Add a recipe
-          </button>
-
-          <ul class="list-group">
-            <li
-              class="list-group-item wbdv-created-recipe"
-              *ngFor="let recipe of createdRecipes"
-              (click)="navigateToRecipe(recipe)"
+            <button
+              class="btn btn-dark btn-block mb-2 mr-2"
+              (click)="openAddModal(content)"
             >
-              <b>{{ recipe.name }}</b>
-              <button
-                (click)="deleteRecipe(recipe)"
-                class="btn btn-danger fa fa-trash float-right"
-              ></button>
-              <button
-                (click)="openEditModal(content, recipe)"
-                class="btn btn-primary fa fa-pencil float-right"
-              ></button>
-            </li>
-          </ul>
+              Add a recipe
+            </button>
+
+            <ul class="list-group">
+              <li
+                class="list-group-item wbdv-created-recipe"
+                *ngFor="let recipe of createdRecipes"
+                (click)="navigateToRecipe(recipe)"
+              >
+                <b>{{ recipe.name }}</b>
+                <button
+                  (click)="deleteRecipe(recipe)"
+                  class="btn btn-danger fa fa-trash float-right"
+                ></button>
+                <button
+                  (click)="openEditModal(content, recipe)"
+                  class="btn btn-primary fa fa-pencil float-right"
+                ></button>
+              </li>
+            </ul>
           </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserServiceClient } from "../../services/user.service.client";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { RecipeServiceClient } from "../../services/recipe.service.client";
 import { LikeServiceClient } from "../../services/like.service.client";
 import { RatingServiceClient } from "../../services/rating.service.client";
@@ -29,9 +29,15 @@ export class ProfileComponent implements OnInit {
     private ratingService: RatingServiceClient,
     private followService: FollowServiceClient,
     private modalService: NgbModal,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => this.loadUser(params["username"]));
+  }
 
+  notSelfProfile: Boolean = true;
+  username = "";
+  isUserFollowed = false;
   user: User = new User();
   likedRecipes: Like[] = [];
   ratedRecipes: Rating[] = [];
@@ -169,50 +175,131 @@ export class ProfileComponent implements OnInit {
   }
 
   loadLikedRecipesForUser = () => {
-    this.likeService
-      .findLikedRecipesForCurrentUser()
-      .then(recipes => (this.likedRecipes = recipes));
+    if (!this.notSelfProfile) {
+      this.likeService
+        .findLikedRecipesForCurrentUser()
+        .then(recipes => (this.likedRecipes = recipes));
+    } else {
+      this.likeService
+        .findLikedRecipesForUser(this.user._id)
+        .then(recipes => (this.likedRecipes = recipes));
+    }
   };
 
   loadRatedRecipesForUser = () => {
-    this.ratingService
-      .findRatedRecipesForCurrentUser()
-      .then(recipes => (this.ratedRecipes = recipes));
+    if (!this.notSelfProfile) {
+      this.ratingService
+        .findRatedRecipesForCurrentUser()
+        .then(recipes => (this.ratedRecipes = recipes));
+    } else {
+      this.ratingService
+        .findRatedRecipesForUser(this.user._id)
+        .then(recipes => (this.ratedRecipes = recipes));
+    }
   };
 
   loadFollowersForUser = () => {
-    this.followService
-      .getFollowersForCurrentUser()
-      .then(followers => (this.followers = followers));
+    if (!this.notSelfProfile) {
+      this.followService
+        .getFollowersForCurrentUser()
+        .then(followers => (this.followers = followers));
+    } else {
+      this.followService.getFollowers(this.user._id).then(followers => {
+        this.followers = followers;
+        this.isFollowed();
+      });
+    }
   };
 
+  isFollowed() {
+    const followerUserIds = this.followers.map(follow => follow.from._id);
+    this.isUserFollowed = !(followerUserIds.indexOf(this.user._id) === -1);
+    return this.isUserFollowed;
+  }
+
+  follow() {
+    if (this.user["username"]) {
+      this.followService.follow(this.user._id).then(() => {
+        this.loadFollowersForUser();
+        this.isUserFollowed = true;
+      });
+    } else {
+      this.router.navigate(["login"]);
+    }
+  }
+
   loadFollowingForUser = () => {
-    this.followService
-      .getFollowingForCurrentUser()
-      .then(followings => (this.followings = followings));
+    if (!this.notSelfProfile) {
+      this.followService
+        .getFollowingForCurrentUser()
+        .then(followings => (this.followings = followings));
+    } else {
+      this.followService
+        .getFollowing(this.user._id)
+        .then(followings => (this.followings = followings));
+    }
   };
 
   loadCreatedRecipes = () => {
-    this.recipeService
-      .findCreatedRecipesForCurrentUser()
-      .then(recipes => (this.createdRecipes = recipes));
+    if (!this.notSelfProfile) {
+      this.recipeService
+        .findCreatedRecipesForCurrentUser()
+        .then(recipes => (this.createdRecipes = recipes));
+    } else {
+      this.recipeService
+        .findCreatedRecipesForUser(this.user._id)
+        .then(recipes => (this.createdRecipes = recipes));
+    }
   };
 
-  ngOnInit() {
-    this.userService.profile().then(user => {
-      if (user["username"]) {
-        if (user.role === "Admin") {
-          this.selection = "Manage Users";
-        }
+  loadUser(username) {
+    this.username = username;
+    if (username === undefined) {
+      this.notSelfProfile = false;
+      return;
+    }
+    this.selection = "Liked Recipes";
+    this.userService
+      .profile()
+      .then(user => {
         this.user = user;
-        this.loadLikedRecipesForUser();
-        this.loadRatedRecipesForUser();
-        this.loadFollowersForUser();
-        this.loadFollowingForUser();
-        this.loadCreatedRecipes();
-      } else {
-        this.router.navigate(["login"]);
+      })
+      .then(() => {
+        if (this.user.username === this.username) {
+          this.router.navigate(["profile"]);
+        }
+      });
+    this.userService.profileOfUser(username).then(user => {
+      console.log(user);
+      if (user.role === "Admin") {
+        this.router.navigate(["profile"]);
       }
+      this.user = user;
+      this.loadLikedRecipesForUser();
+      this.loadRatedRecipesForUser();
+      this.loadFollowersForUser();
+      this.loadFollowingForUser();
+      this.loadCreatedRecipes();
     });
+  }
+
+  ngOnInit() {
+    if (!this.notSelfProfile) {
+      this.userService.profile().then(user => {
+        if (user["username"]) {
+          if (user.role === "Admin") {
+            this.selection = "Manage Users";
+          }
+          this.user = user;
+          this.loadLikedRecipesForUser();
+          this.loadRatedRecipesForUser();
+          this.loadFollowersForUser();
+          this.loadFollowingForUser();
+          this.loadCreatedRecipes();
+        } else {
+          this.router.navigate(["login"]);
+        }
+      });
+    }
   }
 }

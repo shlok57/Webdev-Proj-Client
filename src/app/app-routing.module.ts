@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "profile/:username", component: UserProfileComponent },
+  { path: "profile/:username", component: ProfileComponent },
   { path: "admin", component: AdminPageComponent },
   { path: "**", component: HomeComponent } // last
 ];
