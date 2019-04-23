@@ -2,7 +2,7 @@
 
 <div class="wbdv-top-container">
   <div class="row">
-  <div class="col-6" *ngIf="likedRecipes.length > 0">
+  <div class="col-6" *ngIf="likedRecipes !== undefined">
     <h5 class="h5">Few Recipes you have liked</h5>
     <ul class="list-group">
       <li
@@ -13,7 +13,7 @@
       </li>
     </ul>
   </div>
-  <div class="col-6" *ngIf="topRatedRecipes.length > 0">
+  <div class="col-6" *ngIf="topRatedRecipes !== undefined">
     <h5 class="h5">Recipes With Least Ingredients</h5>
     <ul class="list-group">
       <li
