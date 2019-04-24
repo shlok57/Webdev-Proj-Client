@@ -36,7 +36,6 @@ import { RecipeDetailsComponent } from "./components/recipe-details/recipe-detai
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule,
     FormsModule,
     NgbModule.forRoot(),
     CarouselModule,

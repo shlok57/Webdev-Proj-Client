@@ -253,7 +253,7 @@ export class ProfileComponent implements OnInit {
     if (!this.notSelfProfile) {
       this.recipeService
         .findCreatedRecipesForCurrentUser()
-        .then(recipes => (this.createdRecipes = recipes));
+        .then(recipes => {this.createdRecipes = recipes; console.log(recipes)});
     } else {
       this.recipeService
         .findCreatedRecipesForUser(this.profileUser._id)
