@@ -152,7 +152,7 @@
 
         <div
           class="form-group"
-          *ngIf="currentUser.role === 'Critic' && newRating !== 0"
+          *ngIf="newRating !== 0"
         >
           <textarea
             [(ngModel)]="newReview"
@@ -178,97 +178,121 @@
 
       <hr />
 
-      <h4>Critic's Reviews ({{ reviewedUsers.length }})</h4>
-
-      <ul class="list-group proj-recipe">
-        <li
-          *ngFor="let reviewedUser of reviewedUsers"
-          (click)="goToUserProfile(reviewedUser.user.username)"
-          class="list-group-item proj-group-item proj-linebreaks"
-        >
-          <b>{{ reviewedUser.user.username }}</b>
-
-          <div class="proj-rated">
-            <input
-              type="radio"
-              id="star5b"
-              [ngClass]="{ highlight: reviewedUser.rating === 5 }"
-            />
-            <label for="star5b" title="OUTSTANDING"> </label>
-            <input
-              type="radio"
-              id="star4b"
-              [ngClass]="{ highlight: reviewedUser.rating === 4 }"
-            />
-            <label for="star4b" title="REALLY GOOD"> </label>
-            <input
-              type="radio"
-              id="star3b"
-              [ngClass]="{ highlight: reviewedUser.rating === 3 }"
-            />
-            <label for="star3b" title="JUST GOOD"> </label>
-            <input
-              type="radio"
-              id="star2b"
-              [ngClass]="{ highlight: reviewedUser.rating === 2 }"
-            />
-            <label for="star2b" title="SO SO"> </label>
-            <input
-              type="radio"
-              id="star1b"
-              [ngClass]="{ highlight: reviewedUser.rating === 1 }"
-            />
-            <label for="star1b" title="DIDN'T LIKE IT"> </label>
+      <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h4>User Comments ({{ ratedUsers.length }})</h4>
+              </button>
+            </h5>
           </div>
 
-          <div class="proj-review">{{ reviewedUser.review }}</div>
-        </li>
-      </ul>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <ul class="list-group proj-recipe">
+                <li
+                  *ngFor="let reviewedUser of ratedUsers"
+                  (click)="goToUserProfile(reviewedUser.user.username)"
+                  class="list-group-item proj-group-item proj-linebreaks"
+                >
+                  <b>{{ reviewedUser.user.username }}</b>
 
-      <h4>Ratings ({{ ratedUsers.length }})</h4>
+                  <div class="proj-rated">
+                    <input
+                      type="radio"
+                      id="star5b"
+                      [ngClass]="{ highlight: reviewedUser.rating === 5 }"
+                    />
+                    <label for="star5b" title="OUTSTANDING"> </label>
+                    <input
+                      type="radio"
+                      id="star4b"
+                      [ngClass]="{ highlight: reviewedUser.rating === 4 }"
+                    />
+                    <label for="star4b" title="REALLY GOOD"> </label>
+                    <input
+                      type="radio"
+                      id="star3b"
+                      [ngClass]="{ highlight: reviewedUser.rating === 3 }"
+                    />
+                    <label for="star3b" title="JUST GOOD"> </label>
+                    <input
+                      type="radio"
+                      id="star2b"
+                      [ngClass]="{ highlight: reviewedUser.rating === 2 }"
+                    />
+                    <label for="star2b" title="SO SO"> </label>
+                    <input
+                      type="radio"
+                      id="star1b"
+                      [ngClass]="{ highlight: reviewedUser.rating === 1 }"
+                    />
+                    <label for="star1b" title="DIDN'T LIKE IT"> </label>
+                  </div>
 
-      <ul class="list-group proj-recipe">
-        <li
-          *ngFor="let ratedUser of ratedUsers"
-          (click)="goToUserProfile(ratedUser.user.username)"
-          class="list-group-item proj-group-item"
-        >
-          <b>{{ ratedUser.user.username }}</b>
-
-          <div class="proj-rated">
-            <input
-              type="radio"
-              id="star5a"
-              [ngClass]="{ highlight: ratedUser.rating === 5 }"
-            />
-            <label for="star5a" title="OUTSTANDING"> </label>
-            <input
-              type="radio"
-              id="star4a"
-              [ngClass]="{ highlight: ratedUser.rating === 4 }"
-            />
-            <label for="star4a" title="REALLY GOOD"> </label>
-            <input
-              type="radio"
-              id="star3a"
-              [ngClass]="{ highlight: ratedUser.rating === 3 }"
-            />
-            <label for="star3a" title="JUST GOOD"> </label>
-            <input
-              type="radio"
-              id="star2a"
-              [ngClass]="{ highlight: ratedUser.rating === 2 }"
-            />
-            <label for="star2a" title="SO SO"> </label>
-            <input
-              type="radio"
-              id="star1a"
-              [ngClass]="{ highlight: ratedUser.rating === 1 }"
-            />
-            <label for="star1a" title="DIDN'T LIKE IT"> </label>
+                  <div class="proj-review">{{ reviewedUser.review }}</div>
+                </li>
+              </ul>
+              </div>
           </div>
-        </li>
-      </ul>
-    </div>
+
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <h4>Ratings ({{ ratedUsers.length }})</h4>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                  <ul class="list-group proj-recipe">
+                    <li
+                      *ngFor="let ratedUser of ratedUsers"
+                      (click)="goToUserProfile(ratedUser.user.username)"
+                      class="list-group-item proj-group-item"
+                    >
+                      <b>{{ ratedUser.user.username }}</b>
+
+                      <div class="proj-rated">
+                        <input
+                          type="radio"
+                          id="star5a"
+                          [ngClass]="{ highlight: ratedUser.rating === 5 }"
+                        />
+                        <label for="star5a" title="OUTSTANDING"> </label>
+                        <input
+                          type="radio"
+                          id="star4a"
+                          [ngClass]="{ highlight: ratedUser.rating === 4 }"
+                        />
+                        <label for="star4a" title="REALLY GOOD"> </label>
+                        <input
+                          type="radio"
+                          id="star3a"
+                          [ngClass]="{ highlight: ratedUser.rating === 3 }"
+                        />
+                        <label for="star3a" title="JUST GOOD"> </label>
+                        <input
+                          type="radio"
+                          id="star2a"
+                          [ngClass]="{ highlight: ratedUser.rating === 2 }"
+                        />
+                        <label for="star2a" title="SO SO"> </label>
+                        <input
+                          type="radio"
+                          id="star1a"
+                          [ngClass]="{ highlight: ratedUser.rating === 1 }"
+                        />
+                        <label for="star1a" title="DIDN'T LIKE IT"> </label>
+                      </div>
+                    </li>
+                  </ul>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
   </div>
 </div>
