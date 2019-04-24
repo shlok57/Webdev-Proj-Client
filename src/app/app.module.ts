@@ -11,7 +11,6 @@ import { RecipeServiceClient } from "./services/recipe.service.client";
 import { HomeComponent } from "./components/home/home.component";
 import { SearchComponent } from "./components/search/search.component";
 import { ProfileComponent } from "./components/profile/profile.component";
-import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { AdminPageComponent } from "./components/admin-page/admin-page.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SearchBarComponent } from "./components/search-bar/search-bar.component";
@@ -32,7 +31,6 @@ import { RecipeDetailsComponent } from "./components/recipe-details/recipe-detai
     HomeComponent,
     SearchComponent,
     ProfileComponent,
-    UserProfileComponent,
     AdminPageComponent,
     SearchBarComponent,
     RecipeDetailsComponent

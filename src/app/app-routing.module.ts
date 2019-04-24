@@ -6,7 +6,6 @@ import { RecipeDetailsComponent } from "./components/recipe-details/recipe-detai
 import { HomeComponent } from "./components/home/home.component";
 import { SearchComponent } from "./components/search/search.component";
 import { AdminPageComponent } from "./components/admin-page/admin-page.component";
-import { UserProfileComponent } from "./components/user-profile/user-profile.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 
 const routes: Routes = [
