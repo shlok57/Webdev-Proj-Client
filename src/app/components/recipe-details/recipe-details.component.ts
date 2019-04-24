@@ -122,12 +122,10 @@ export class RecipeDetailsComponent implements OnInit {
         this.newRating = this.myRatings[0].rating;
         this.newReview = this.myRatings[0].review;
       }
-      this.ratedUsers = ratings.filter(
-        rating => !(rating.user.role === "Critic")
-      );
-      this.reviewedUsers = ratings.filter(
+      this.ratedUsers = ratings;
+     /* this.reviewedUsers = ratings.filter(
         rating => rating.user.role === "Critic"
-      );
+      );*/
     });
   }
 
