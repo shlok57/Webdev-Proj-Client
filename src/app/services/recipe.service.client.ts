@@ -36,7 +36,7 @@ export class RecipeServiceClient {
       imageUrl: newRecipe["imageUrl"],
       totalTime: newRecipe["totalTime"],
       numberOfServings: newRecipe["numberOfServings"],
-      createdBy: "Chef",
+      createdBy: "CHEF",
       chef: chefId
     };
     return fetch(this.RECIPE_URL, {
