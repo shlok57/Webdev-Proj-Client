@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~7.2.0",
+    "express": "^4.16.4",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
@@ -27,6 +28,7 @@
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.0",
+    "typescript": "~3.2.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
@@ -51,5 +53,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
+  },
+  "engines": {
+    "node": "~10.15.3",
+    "npm": "~6.4.0"
   }
 }
