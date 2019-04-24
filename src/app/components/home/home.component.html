@@ -7,7 +7,7 @@
 <div class="wbdv-top-container">
   <div class="row">
     <div class="col-6" *ngIf="likedRecipes !== undefined">
-      <h5 class="h5">Your Favourites</h5>
+      <h5 align="center" class="h5">Your Favourites</h5>
       <ul class="list-group">
         <li
           *ngFor="let likedRecipe of likedRecipes"
@@ -19,7 +19,7 @@
       </ul>
     </div>
     <div class="col-6" *ngIf="topRatedRecipes !== undefined">
-      <h5 class="h5">Recipes With Least Ingredients</h5>
+      <h5 align="center" class="h5">Recipes With Least Ingredients</h5>
       <ul class="list-group">
         <li
           *ngFor="let ratedRecipe of topRatedRecipes"
