@@ -19,13 +19,19 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  logout() {
+    this.userService.logout().then(() => this.router.navigate(["login"]));
+  }
+
   searchText = "";
   currentUser: User = new User();
   isCollapsed = true;
 
   ngOnInit() {
+    console.log("Init");
     this.userService.profile().then(response => {
       this.currentUser = response;
+      console.log(this.currentUser);
     });
   }
 

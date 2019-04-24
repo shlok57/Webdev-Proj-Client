@@ -13,7 +13,6 @@ import { SearchComponent } from "./components/search/search.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { AdminPageComponent } from "./components/admin-page/admin-page.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { SearchBarComponent } from "./components/search-bar/search-bar.component";
 import { CarouselModule, WavesModule } from "angular-bootstrap-md";
 import { FollowServiceClient } from "./services/follow.service.client";
 import { RatingServiceClient } from "./services/rating.service.client";
@@ -32,7 +31,6 @@ import { RecipeDetailsComponent } from "./components/recipe-details/recipe-detai
     SearchComponent,
     ProfileComponent,
     AdminPageComponent,
-    SearchBarComponent,
     RecipeDetailsComponent
   ],
   imports: [
