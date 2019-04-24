@@ -77,7 +77,7 @@
         >
           {{ ingredient }}
         </li>
-        <li class="list-group-item proj-ingredients-heading" *ngIf="recipeDetails.sourceRecipeUrl">
+        <li class="list-group-item proj-ingredients-heading" *ngIf="recipeDetails && recipeDetails['sourceRecipeUrl']">
           <a
             class="btn btn-outline-light"
             href="{{ recipeDetails['sourceRecipeUrl'] }}"
