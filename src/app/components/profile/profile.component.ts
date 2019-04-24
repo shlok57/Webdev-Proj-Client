@@ -85,11 +85,21 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  unfollow() {
-    this.followService.unfollow(this.profileUser._id).then(() => {
-      this.isUserFollowed = false;
-      this.loadFollowersForUser();
-    });
+  unfollow(following) {
+    if(!this.notSelfProfile) {
+      this.followService.unfollow(following.to._id).then(() => {
+        //this.isUserFollowed = false;
+        this.loadFollowingForUser();
+      });
+    }
+    else {
+      this.followService.unfollow(this.profileUser._id).then(() => {
+        this.isUserFollowed = false;
+        this.loadFollowingForUser();
+      });
+    }
+
+    event.stopPropagation();
   }
 
   unlike(likedRecipe) {
