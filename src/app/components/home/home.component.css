@@ -1,5 +1,17 @@
+#banner {
+  background-color: #721c24;
+}
+
+.wbdv-topmost-container {
+  padding-top: 70px;
+}
+
 .wbdv-top-container {
-  padding-top: 60px;
+  padding-top: 30px;
+}
+
+.wbdv-middle-container {
+  padding-top: 20px;
 }
 
 .wbdv-bottom-container {
@@ -15,10 +27,3 @@
   filter: brightness(70%);
 }
 
-.wbdv-topmost-container {
-  padding-top: 70px;
-}
-
-#banner {
-  background-color: #721c24;
-}
