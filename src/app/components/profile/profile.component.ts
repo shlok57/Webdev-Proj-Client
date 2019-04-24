@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.route.params.subscribe(params => this.loadUser(params["username"]));
+    console.log("const");
   }
 
   notSelfProfile: Boolean = true;
@@ -51,6 +52,7 @@ export class ProfileComponent implements OnInit {
   modalReference: NgbModalRef;
   searchText = "";
   isCollapsed = true;
+  profileUser: User = new User();
 
   logout() {
     this.userService.logout().then(() => this.router.navigate(["login"]));
@@ -83,11 +85,11 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  unfollow(following) {
-    event.stopPropagation();
-    this.followService
-      .unfollow(following.to._id)
-      .then(() => this.loadFollowingForUser());
+  unfollow() {
+    this.followService.unfollow(this.profileUser._id).then(() => {
+      this.isUserFollowed = false;
+      this.loadFollowersForUser();
+    });
   }
 
   unlike(likedRecipe) {
@@ -181,7 +183,7 @@ export class ProfileComponent implements OnInit {
         .then(recipes => (this.likedRecipes = recipes));
     } else {
       this.likeService
-        .findLikedRecipesForUser(this.user._id)
+        .findLikedRecipesForUser(this.profileUser._id)
         .then(recipes => (this.likedRecipes = recipes));
     }
   };
@@ -193,7 +195,7 @@ export class ProfileComponent implements OnInit {
         .then(recipes => (this.ratedRecipes = recipes));
     } else {
       this.ratingService
-        .findRatedRecipesForUser(this.user._id)
+        .findRatedRecipesForUser(this.profileUser._id)
         .then(recipes => (this.ratedRecipes = recipes));
     }
   };
@@ -204,7 +206,7 @@ export class ProfileComponent implements OnInit {
         .getFollowersForCurrentUser()
         .then(followers => (this.followers = followers));
     } else {
-      this.followService.getFollowers(this.user._id).then(followers => {
+      this.followService.getFollowers(this.profileUser._id).then(followers => {
         this.followers = followers;
         this.isFollowed();
       });
@@ -219,7 +221,7 @@ export class ProfileComponent implements OnInit {
 
   follow() {
     if (this.user["username"]) {
-      this.followService.follow(this.user._id).then(() => {
+      this.followService.follow(this.profileUser._id).then(() => {
         this.loadFollowersForUser();
         this.isUserFollowed = true;
       });
@@ -235,7 +237,7 @@ export class ProfileComponent implements OnInit {
         .then(followings => (this.followings = followings));
     } else {
       this.followService
-        .getFollowing(this.user._id)
+        .getFollowing(this.profileUser._id)
         .then(followings => (this.followings = followings));
     }
   };
@@ -247,7 +249,7 @@ export class ProfileComponent implements OnInit {
         .then(recipes => (this.createdRecipes = recipes));
     } else {
       this.recipeService
-        .findCreatedRecipesForUser(this.user._id)
+        .findCreatedRecipesForUser(this.profileUser._id)
         .then(recipes => (this.createdRecipes = recipes));
     }
   };
@@ -258,6 +260,7 @@ export class ProfileComponent implements OnInit {
       this.notSelfProfile = false;
       return;
     }
+    console.log(username);
     this.selection = "Liked Recipes";
     this.userService
       .profile()
@@ -274,7 +277,9 @@ export class ProfileComponent implements OnInit {
       if (user.role === "ADMIN") {
         this.router.navigate(["profile"]);
       }
-      this.user = user;
+      //this.user = user;
+      console.log(this.user);
+      this.profileUser = user;
       this.loadLikedRecipesForUser();
       this.loadRatedRecipesForUser();
       this.loadFollowersForUser();
@@ -299,7 +304,12 @@ export class ProfileComponent implements OnInit {
         } else {
           this.router.navigate(["login"]);
         }
+        console.log(this.user);
       });
     }
+    else {
+      console.log(this.user);
+    }
+
   }
 }

@@ -60,37 +60,107 @@
     </div>
   </div>
 </nav>
-<!-- 
-<div class="wbdv-user-info-component" *ngIf="notSelfProfile">
-  <img
-    src="https://cdn3.iconfinder.com/data/icons/vacation-4/32/vacation_29-512.png"
-    *ngIf="user.role === 'FOODIE'"
-    class="center"
-  />
-  <img
-    src="https://cdn.iconscout.com/public/images/icon/premium/png-512/hat-chef-34a84148ee18041e-512x512.png"
-    *ngIf="user.role === 'CHEF'"
-    class="center"
-  />
-  {{ username }}
-  <button
-    class="btn btn-success wbdv-follow"
-    *ngIf="!user.username || (!isUserFollowed && user.role !== 'Admin')"
-    (click)="follow()"
-  >
-    Follow
-  </button>
-  <button
-    class="btn btn-warning wbdv-unfollow"
-    *ngIf="isUserFollowed"
-    (click)="unfollow()"
-  >
-    UnFollow
-  </button>
-</div> -->
+
+
 
 <div class="container-fluid wbdv-profile">
   <div class="accordion" id="accordionExample">
+    <div class="card" *ngIf="notSelfProfile">
+      <button
+        class="btn btn-link"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapseP"
+        aria-expanded="true"
+        aria-controls="collapseP"
+      >
+        <div class="card-header" id="headingP">
+          <h5 class="mb-0">
+            Profile
+          </h5>
+        </div>
+      </button>
+
+      <div
+        id="collapseP"
+        class="collapse show"
+        aria-labelledby="headingP"
+        data-parent="#accordionExample"
+      >
+        <div class="card-body wbdv-selection">
+
+          <button
+            class="btn btn-success wbdv-follow"
+            *ngIf="!profileUser.username || (!isUserFollowed && profileUser.role !== 'Admin')"
+            (click)="follow()"
+          >
+            Follow
+          </button>
+          <button
+            class="btn btn-warning wbdv-unfollow"
+            *ngIf="isUserFollowed"
+            (click)="unfollow()"
+          >
+            UnFollow
+          </button>
+
+          <div class="form-group">
+            <label>Username</label>
+
+            <input
+              readonly
+              [(ngModel)]="profileUser['username']"
+              placeholder="username"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>First Name</label>
+            <input
+              readonly
+              [(ngModel)]="profileUser['firstName']"
+              placeholder="first name"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Last Name</label>
+            <input
+              readonly
+              [(ngModel)]="profileUser['lastName']"
+              placeholder="lastName"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              readonly
+              [(ngModel)]="profileUser['email']"
+              placeholder="email"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Role</label>
+            <input
+              readonly
+              [(ngModel)]="user['role']"
+              placeholder="role"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
     <div class="card" *ngIf="!notSelfProfile">
       <button
         class="btn btn-link"
@@ -516,7 +586,7 @@
                 ></button>
                 <button
                   (click)="openEditModal(content, recipe)"
-                  class="btn btn-primary fa fa-pencil float-right"
+                  class="btn btn-primary fas fa-pencil-alt float-right"
                 ></button>
               </li>
             </ul>
