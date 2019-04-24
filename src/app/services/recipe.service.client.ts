@@ -39,6 +39,7 @@ export class RecipeServiceClient {
       createdBy: "CHEF",
       chef: chefId
     };
+    console.log(recipe);
     return fetch(this.RECIPE_URL, {
       method: "post",
       body: JSON.stringify(recipe),

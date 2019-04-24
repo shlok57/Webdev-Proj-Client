@@ -1840,9 +1840,10 @@ var RecipeServiceClient = /** @class */ (function () {
                 imageUrl: newRecipe["imageUrl"],
                 totalTime: newRecipe["totalTime"],
                 numberOfServings: newRecipe["numberOfServings"],
-                createdBy: "Chef",
+                createdBy: "CHEF",
                 chef: chefId
             };
+            console.log(recipe);
             return fetch(_this.RECIPE_URL, {
                 method: "post",
                 body: JSON.stringify(recipe),
