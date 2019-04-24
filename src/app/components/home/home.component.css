@@ -14,3 +14,11 @@
 .view {
   filter: brightness(70%);
 }
+
+.wbdv-topmost-container {
+  padding-top: 70px;
+}
+
+#banner {
+  background-color: #721c24;
+}
