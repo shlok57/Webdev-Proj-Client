@@ -155,7 +155,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   findRecipeById(yummlyId) {
     if (yummlyId.startsWith("foodfood-")) {
-      this.recipeService.findRecipeById(yummlyId.substr(12)).then(response => {
+      this.recipeService.findRecipeById(yummlyId.substr(9)).then(response => {
         if (response["name"]) {
           this.loadRecipeDetails(response);
         }

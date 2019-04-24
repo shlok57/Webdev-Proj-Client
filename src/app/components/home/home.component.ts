@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToRecipe(recipe) {
-    var likedRecipe;
+    var likedRecipe = {recipe};
     if (recipe.recipe == undefined) {
       likedRecipe.recipe = recipe;
     } else {

@@ -103,7 +103,14 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(["search/" + searchText]);
   }
 
-  navigateToRecipe(likedRecipe) {
+  navigateToRecipe(recipe) {
+    var likedRecipe = {recipe};
+    if (recipe.recipe == undefined) {
+      likedRecipe.recipe = recipe;
+    } else {
+      likedRecipe = recipe;
+    }
+    console.log(likedRecipe);
     if (likedRecipe.recipe.yummlyId) {
       this.router.navigate([
         "search/" + likedRecipe.recipe.name + "/" + likedRecipe.recipe.yummlyId
