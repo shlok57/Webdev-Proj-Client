@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(username, password).then(user => {
       if (user.username) {
         this.alertUsername = false;
-        this.router.navigate(["profile"]);
+        this.router.navigate([""]);
       } else {
         this.alertUsername = true;
       }
