@@ -1,41 +1,10 @@
 <navbar></navbar>
-<!--<nav class="navbar navbar-dark bg-dark justify-content-between wbdv-navbar">
-  <h3 class="navbar-brand">Admin</h3>
-  <form class="form-inline">
-    <a routerLink="/profile">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="button">
-        Profile
-      </button>
-    </a>
-    <a routerLink="/home">
-      <button class="btn btn-outline-light my-2 my-sm-0" type="button">
-        Home
-      </button>
-    </a>
-  </form>
-</nav> -->
+
 
 <div class="container-fluid wbdv-profile">
-  <div class="wbdv-nav">
-    <nav class="nav nav-pills nav-justified">
-      <div
-        class="nav-item nav-link"
-        [ngClass]="{ active: selection === 'Manage Users' }"
-        (click)="changeSelection('Manage Users')"
-      >
-        Manage Users
-      </div>
-      <div
-        class="nav-item nav-link"
-        [ngClass]="{ active: selection === 'Manage Recipes' }"
-        (click)="changeSelection('Manage Recipes')"
-      >
-        Manage Recipes
-      </div>
-    </nav>
-  </div>
 
-  <div class="wbdv-selection" *ngIf="selection === 'Manage Users'">
+
+  <div class="wbdv-selection">
     <ng-template #content2 let-c="close" let-d="dismiss">
       <div class="modal-header">
         <h4 class="modal-title" *ngIf="!newUser._id">
@@ -160,218 +129,73 @@
       Add a user
     </button>
 
-    <div class="row">
-      <div class="col-lg-6 col-sm-12">
-        <ul class="list-group">
-          <li class="list-group-item wbdv-users-heading">Chefs</li>
-          <li
-            *ngFor="let chef of chefs"
-            (click)="navigateToProfile(chef.username)"
-            class="list-group-item wbdv-user"
-          >
-            {{ chef.username }}
-            <button
-              class="btn btn-danger fa fa-trash float-right"
-              (click)="deleteUser(chef)"
-            ></button>
-            <button
-              class="btn btn-primary fa fa-pencil-alt float-right"
-              (click)="openEditModal(content2, chef)"
-            ></button>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-lg-6 col-sm-12">
-        <ul class="list-group">
-          <li class="list-group-item wbdv-users-heading">Foodies</li>
-          <li
-            *ngFor="let customer of customers"
-            (click)="navigateToProfile(customer.username)"
-            class="list-group-item wbdv-user"
-          >
-            {{ customer.username }}
-            <button
-              class="btn btn-danger fa fa-trash float-right"
-              (click)="deleteUser(customer)"
-            ></button>
-            <button
-              class="btn btn-primary fa fa-pencil-alt float-right"
-              (click)="openEditModal(content2, customer)"
-            ></button>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
 
-  <div class="wbdv-selection" *ngIf="selection === 'Manage Recipes'">
-    <ng-template #content let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title" *ngIf="!newRecipe._id">
-          Create a recipe
-        </h4>
-        <h4 class="modal-title" *ngIf="newRecipe._id">
-          Update a recipe
-        </h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="d('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="accordion" id="accordionExample">
+    <div class="card">
+      <button class="btn btn-link" type="button" data-toggle="collapse"
+              data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+           Chefs
+
+        </h5>
       </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Recipe Name</label>
-          <input
-            [(ngModel)]="newRecipe.name"
-            placeholder="recipe name"
-            class="form-control"
-          />
-        </div>
+      </button>
 
-        <div class="form-group">
-          <label>Ingredients (Add each ingredient on a new line)</label>
-          <textarea
-            [(ngModel)]="newRecipe.ingredients"
-            placeholder="ingredients"
-            class="form-control"
-          >
-          </textarea>
-        </div>
-
-        <div class="form-group">
-          <label
-            >ImageUrl (Provide a square image of size at least 360x360)</label
-          >
-          <input
-            [(ngModel)]="newRecipe.imageUrl"
-            placeholder="image url of recipe"
-            class="form-control"
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Total time required</label>
-          <input
-            [(ngModel)]="newRecipe.totalTime"
-            placeholder="total time required"
-            class="form-control"
-          />
-        </div>
-
-        <div class="form-group">
-          <label>Number of Servings</label>
-          <input
-            [(ngModel)]="newRecipe.numberOfServings"
-            placeholder="number of servings"
-            class="form-control"
-          />
-        </div>
-
-        <button
-          (click)="createRecipe()"
-          *ngIf="!newRecipe._id"
-          class="btn btn-dark btn-block"
-        >
-          Add
-        </button>
-        <button
-          (click)="updateRecipe()"
-          *ngIf="newRecipe._id"
-          class="btn btn-dark btn-block"
-        >
-          Update
-        </button>
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          <ul class="list-group">
+            <li
+              *ngFor="let chef of chefs"
+              (click)="navigateToProfile(chef.username)"
+              class="list-group-item wbdv-user"
+            >
+              {{ chef.username }}
+              <button
+                class="btn btn-danger fa fa-trash float-right"
+                (click)="deleteUser(chef)"
+              ></button>
+              <button
+                class="btn btn-primary fa fa-pencil-alt float-right"
+                (click)="openEditModal(content2, chef)"
+              ></button>
+            </li>
+          </ul>
+          </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" (click)="c('Close click')">
-          Close
-        </button>
-      </div>
-    </ng-template>
+    </div>
 
-    <div class="row">
-      <div class="col-lg-6 col-sm-12">
-        <ul class="list-group">
-          <li class="list-group-item wbdv-users-heading">Chef's Special</li>
-          <li
-            *ngFor="let chefSpecial of chefSpecials"
-            (click)="navigateToRecipe(chefSpecial)"
-            class="list-group-item wbdv-recipe"
-          >
-            {{ chefSpecial.name }}
-            <button
-              (click)="deleteRecipe(chefSpecial)"
-              class="btn btn-danger fa fa-trash float-right"
-            ></button>
-            <button
-              (click)="openEditModal(content, chefSpecial)"
-              class="btn btn-primary fa fa-pencil-alt float-right"
-            ></button>
-          </li>
-        </ul>
-        <div class="wbdv-pagination-component" *ngIf="chefSpecials.length > 0">
-          <button
-            type="button"
-            *ngIf="chefCurrentPage !== chefFirstPage"
-            (click)="loadPageChefRecipes(chefCurrentPage - 1)"
-            class="btn btn-primary wbdv-pagination-button"
-          >
-            Previous
-          </button>
-          Page {{ chefCurrentPage }} of {{ chefLastPage }}
-          <button
-            type="button"
-            *ngIf="chefCurrentPage !== chefLastPage"
-            (click)="loadPageChefRecipes(chefCurrentPage + 1)"
-            class="btn btn-primary wbdv-pagination-button"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+    <div class="card">
+      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 
-      <div class="col-lg-6 col-sm-12">
-        <ul class="list-group">
-          <li class="list-group-item wbdv-users-heading">Yummly's Special</li>
-          <li
-            *ngFor="let yummlySpecial of yummlySpecials"
-            (click)="navigateToRecipe(yummlySpecial)"
-            class="list-group-item wbdv-recipe"
-          >
-            {{ yummlySpecial.name }}
-            <button
-              (click)="deleteRecipe(yummlySpecial)"
-              class="btn btn-danger fa fa-trash float-right"
-            ></button>
-          </li>
-        </ul>
-        <div
-          class="wbdv-pagination-component"
-          *ngIf="yummlySpecials.length > 0"
-        >
-          <button
-            type="button"
-            *ngIf="yummlyCurrentPage !== yummlyFirstPage"
-            (click)="loadPageYummlyRecipes(yummlyCurrentPage - 1)"
-            class="btn btn-primary wbdv-pagination-button"
-          >
-            Previous
-          </button>
-          Page {{ yummlyCurrentPage }} of {{ yummlyLastPage }}
-          <button
-            type="button"
-            *ngIf="yummlyCurrentPage !== yummlyLastPage"
-            (click)="loadPageYummlyRecipes(yummlyCurrentPage + 1)"
-            class="btn btn-primary wbdv-pagination-button"
-          >
-            Next
-          </button>
-        </div>
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+            Foodie
+
+        </h5>
+      </div>
+      </button>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+          <ul class="list-group">
+            <li
+              *ngFor="let customer of customers"
+              (click)="navigateToProfile(customer.username)"
+              class="list-group-item wbdv-user"
+            >
+              {{ customer.username }}
+              <button
+                class="btn btn-danger fa fa-trash float-right"
+                (click)="deleteUser(customer)"
+              ></button>
+              <button
+                class="btn btn-primary fa fa-pencil-alt float-right"
+                (click)="openEditModal(content2, customer)"
+              ></button>
+            </li>
+          </ul>
+          </div>
       </div>
     </div>
   </div>
